@@ -1,0 +1,11 @@
+<config>
+{
+  "pages": [
+    "pages/news"
+  ]
+}
+</config>
+
+<script>
+App({})
+</script>

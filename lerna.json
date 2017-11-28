@@ -1,0 +1,9 @@
+{
+  "lerna": "2.2.0",
+  "packages": [
+    "",
+    "../mina-webpack/packages/*",
+    "../tina"
+  ],
+  "version": "independent"
+}

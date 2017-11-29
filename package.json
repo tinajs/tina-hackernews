@@ -8,15 +8,21 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "prebuild": "run-s clean",
-    "build": "webpack"
+    "build": "webpack",
+    "bootstrap": "cd ./node_modules/@tinajs && ln -s ../../../tina tina && ln -s ../../../wuex wuex && ln -s ../../../tina-router tina-router"
   },
   "dependencies": {
     "@tinajs/tina": "^0.0.1",
     "@tinajs/tina-router": "^0.0.1",
+    "@tinajs/wuex": "^0.0.1",
+    "compose-function": "^3.0.3",
+    "date-fns": "^1.29.0",
     "es6-promise": "^4.1.1",
     "keymirror": "^0.1.1",
     "p-queue": "^2.3.0",
-    "p-timeout": "^2.0.1"
+    "p-timeout": "^2.0.1",
+    "underscore": "^1.8.3",
+    "uniq": "^1.0.1"
   },
   "devDependencies": {
     "@tinajs/mina-entry-webpack-plugin": "^0.1.0",

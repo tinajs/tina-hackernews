@@ -4,14 +4,6 @@ const CORS_PROXY_BASE_URL = 'https://cors.now.sh/'
 const HACKERNEWS_API_BASE_URL = 'https://hacker-news.firebaseio.com/v0/'
 const BASE_URL = `${CORS_PROXY_BASE_URL}${HACKERNEWS_API_BASE_URL}`
 
-export const HACKERNEWS_STORY_TYPE = {
-  TOP: 'top',
-  NEW: 'new',
-  BEST: 'best',
-  ASK: 'ask',
-  SHOW: 'show'
-}
-
 function fetch (child) {
   let options = {
     url: `${BASE_URL}${child}.json`,
@@ -22,12 +14,21 @@ function fetch (child) {
     })
 }
 
-export function fetchIdsByType (type) {
-  return fetch(`${type}stories`)
+export function fetchIdsByChannel (channel) {
+  return fetch(`${channel}stories`)
 }
 
 export function fetchItem (id) {
   return fetch(`item/${id}`)
+    .then((item) => {
+      if (!item) {
+        return item
+      }
+      return {
+        ...item,
+        __lastUpdated: Date.now(),
+      }
+    })
 }
 
 export function fetchItems (ids) {

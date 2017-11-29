@@ -7,26 +7,27 @@
 <template>
   <view class="view">
     <view class="header">
-      <view class="link {{ type === 'top' ? 'active' : '' }}" data-type="top" bindtap="tapType">Top</view>
-      <view class="link {{ type === 'new' ? 'active' : '' }}" data-type="new" bindtap="tapType">New</view>
-      <view class="link {{ type === 'show' ? 'active' : '' }}" data-type="show" bindtap="tapType">Show</view>
-      <view class="link {{ type === 'ask' ? 'active' : '' }}" data-type="ask" bindtap="tapType">Ask</view>
-      <view class="link {{ type === 'jobs' ? 'active' : '' }}" data-type="jobs" bindtap="tapType">Jobs</view>
+      <view class="link {{ channel === 'top' ? 'active' : '' }}" data-channel="top" bindtap="tapType">Top</view>
+      <view class="link {{ channel === 'new' ? 'active' : '' }}" data-channel="new" bindtap="tapType">New</view>
+      <view class="link {{ channel === 'show' ? 'active' : '' }}" data-channel="show" bindtap="tapType">Show</view>
+      <view class="link {{ channel === 'ask' ? 'active' : '' }}" data-channel="ask" bindtap="tapType">Ask</view>
+      <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
     </view>
     <view class="news-list">
-      <view class="news-item" wx:for="{{ items }}" wx:for-item="item" wx:key="id" data-id="{{ item.id }}">
+      <view wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="news-item" data-id="{{ item.id }}">
         <view class="score">{{ item.score }}</view>
         <view class="title">
           <view> {{ item.title }} </view>
           <view class="host"> {{ item.host }} </view>
         </view>
         <view class="meta">
-          <view class="by link"> by {{ item.by }} </view>
+          <view wx:if="{{ item.type !== 'job' }}" class="by link"> by {{ item.by }} </view>
           <view class="time"> {{ item.timeAgo }} ago </view>
-          <view class="comments-link">
+          <view wx:if="{{ item.type !== 'job' }}" class="comments-link">
             | <view class="link"> {{ item.descendants }} comments </view>
           </view>
         </view>
+        <view class="label" wx:if="{{ item.type !== 'story' }}">{{ item.type }}</view>
       </view>
     </view>
   </view>
@@ -35,27 +36,34 @@
 <script>
 import { Page } from '@tinajs/tina'
 import wechat from '../libraries/wechat'
-import { fetchIdsByType, HACKERNEWS_STORY_TYPE, fetchItems } from '../api'
+import { wuex } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
-const DEFAULT_TYPE = 'top'
-const PAGE_SIZE = 10
+const DEFAULT_CHANNEL = 'top'
 
-const slicing = (array, page) => array.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
-
-new Page({
-  data: {
-    type: DEFAULT_TYPE,
-    page: 0,
-    items: [],
+new Page(wuex.connect({
+  state: function mappingState (state) {
+    return {
+      channel: state.lists.activeChannel,
+    }
   },
-
+  getters: function mappingGetters (getters) {
+    return {
+      items: getters.activeItems(),
+    }
+  },
+  actions: function mappingActions (actions) {
+    return {
+      fetchListData: actions.fetchListData,
+    }
+  },
+})({
   compute (state) {
     return {
-      items: state.items.map((item) => {
+      items: (state.items || []).map((item) => {
         return {
           ...item,
-          host: host(item.url),
+          host: host(item.url || ''),
           timeAgo: timeAgo(item.time),
         }
       }),
@@ -63,26 +71,21 @@ new Page({
   },
 
   onLoad () {
-    this.setData({
-      msg: 'Hello from Home-Page!'
-    })
-    fetchIdsByType(HACKERNEWS_STORY_TYPE.TOP)
-      .then((ids) => slicing(ids, this.data.page))
-      .then((ids) => fetchItems(ids))
-      .then((items) => this.setData({ items }))
+    this.fetchListData({ channel: DEFAULT_CHANNEL })
       .finally(wechat.loading())
   },
 
   methods: {
     tapType (event) {
-      let type = event.currentTarget.dataset.type
-      if (type === this.data.type) {
+      let channel = event.currentTarget.dataset.channel
+      if (channel === this.data.channel) {
         return
       }
-      this.setData({ type })
+      this.fetchListData({ channel })
+        .finally(wechat.loading())
     },
   },
-})
+}))
 </script>
 
 <style lang="less">
@@ -152,6 +155,9 @@ new Page({
       view {
         display: inline;
       }
+    }
+    .meta, .label {
+      display: inline;
     }
     .link {
       text-decoration: underline;

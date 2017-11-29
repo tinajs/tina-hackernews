@@ -1,11 +1,15 @@
 <config>
 {
   "pages": [
-    "pages/news"
+    "pages/top"
   ]
 }
 </config>
 
 <script>
-App({})
+App({
+  onLaunch() {
+
+  },
+})
 </script>

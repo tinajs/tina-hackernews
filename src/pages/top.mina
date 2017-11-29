@@ -1,0 +1,41 @@
+<config>
+{
+  "name": "mina"
+}
+</config>
+
+<template>
+  <view class="view">
+    <view class="news-item">
+      <view class="score">607</view>
+      <view class="title">
+        <view>Facebook users in Romania see content related to street protests reviewed</view>
+        <view class="host"></view>
+      </view>
+      <view class="meta">
+        <view class="by">by drco</view>
+        <view class="time">3 minutes ago</view>
+        <view class="comments-link">
+          | <view>43 comments</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+const Tina= require('@tinajs/tina');
+console.log(1)
+
+new Page({
+  data: {
+    msg: '',
+  },
+
+  onLoad () {
+    this.setData({
+      msg: 'Hello from Home-Page!'
+    })
+  },
+})
+</script>

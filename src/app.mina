@@ -1,5 +1,9 @@
 <config>
 {
+  "window": {
+    "navigationBarBackgroundColor": "#ff6600",
+    "navigationBarTitleText": "Hackernews"
+  },
   "pages": [
     "pages/top"
   ]
@@ -13,3 +17,16 @@ App({
   },
 })
 </script>
+
+<style>
+page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  background-color: color(#eceef1 tint(30%));
+  margin: 0;
+  padding: 0;
+  color: #34495e;
+  height: 100%;
+  overflow-y: scroll;
+}
+</style>

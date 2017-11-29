@@ -1,22 +1,22 @@
 <config>
 {
-  "name": "mina"
+  "navigationBarTitleText": "Hackernews - Top"
 }
 </config>
 
 <template>
   <view class="view">
-    <view class="news-item">
-      <view class="score">607</view>
+    <view class="news-item" wx:for="{{ items }}" wx:for-item="item" wx:key="id" data-id="{{ item.id }}">
+      <view class="score">{{ item.score }}</view>
       <view class="title">
-        <view>Facebook users in Romania see content related to street protests reviewed</view>
-        <view class="host"></view>
+        <view> {{ item.title }} </view>
+        <view class="host"> {{ item.host }} </view>
       </view>
       <view class="meta">
-        <view class="by">by drco</view>
-        <view class="time">3 minutes ago</view>
+        <view class="by"> by {{ item.by }} </view>
+        <view class="time"> {{ item.timeAgo }} ago </view>
         <view class="comments-link">
-          | <view>43 comments</view>
+          | <view> {{ item.descendants }} comments </view>
         </view>
       </view>
     </view>
@@ -24,18 +24,82 @@
 </template>
 
 <script>
-const Tina= require('@tinajs/tina');
-console.log(1)
+import { Page } from '@tinajs/tina'
+import wechat from '../libraries/wechat'
+import { fetchIdsByType, HACKERNEWS_STORY_TYPE, fetchItems } from '../api'
+import { host, timeAgo } from '../utils/filters'
+
+const PAGE_SIZE = 10
+
+const slicing = (array, page) => array.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
 
 new Page({
   data: {
-    msg: '',
+    page: 0,
+    items: [],
+  },
+
+  compute (state) {
+    return {
+      items: state.items.map((item) => {
+        return {
+          ...item,
+          host: host(item.url),
+          timeAgo: timeAgo(item.time),
+        }
+      }),
+    }
   },
 
   onLoad () {
     this.setData({
       msg: 'Hello from Home-Page!'
     })
+    fetchIdsByType(HACKERNEWS_STORY_TYPE.TOP)
+      .then((ids) => slicing(ids, this.data.page))
+      .then((ids) => fetchItems(ids))
+      .then((items) => this.setData({ items }))
+      .finally(wechat.loading())
   },
 })
 </script>
+
+<style lang="less">
+.news-item {
+  background-color: #fff;
+  padding: 20px 30px 20px 80px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  line-height: 20px;
+  .score {
+    color: #ff6600;
+    font-size: 1.1em;
+    font-weight: 700;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 80px;
+    text-align: center;
+    margin-top: -10px;
+  }
+  .meta, .host {
+    font-size: .85em;
+    color: #828282;
+    a {
+      color: #828282;
+      text-decoration: underline;
+      &:hover {
+        color: #ff6600;
+      }
+    }
+  }
+  .title, .meta {
+    view {
+      display: inline;
+    }
+  }
+  .by, .comments-link {
+    text-decoration: underline;
+  }
+}
+</style>

@@ -14,14 +14,21 @@ export default {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        include: [
+          resolve('src'),
+        ],
+        use: 'babel-loader',
+      },
+      {
         test: /\.mina$/,
         exclude: /node_modules/,
         use: [{
           loader: '@tinajs/mina-loader',
           options: {
             loaders: {
-              js: 'babel-loader',
-              wxss: {
+              script: 'babel-loader',
+              style: {
                 loader: 'postcss-loader',
                 options: {
                   config: {
@@ -49,7 +56,7 @@ export default {
   },
   plugins: [
     new MinaEntryPlugin({
-      map: (entry) => ['es6-promise/dist/es6-promise.auto.js', entry],
+      map: (entry) => ['es6-promise/dist/es6-promise.auto.js', './libraries/bom-polyfill', entry],
     }),
     new MinaRuntimePlugin({
       runtime: './common.js',

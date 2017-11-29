@@ -12,7 +12,10 @@
   },
   "dependencies": {
     "@tinajs/tina": "^0.0.1",
-    "es6-promise": "^4.1.1"
+    "es6-promise": "^4.1.1",
+    "keymirror": "^0.1.1",
+    "p-queue": "^2.3.0",
+    "p-timeout": "^2.0.1"
   },
   "devDependencies": {
     "@tinajs/mina-entry-webpack-plugin": "^0.1.0",
@@ -20,9 +23,13 @@
     "@tinajs/mina-runtime-webpack-plugin": "^0.1.0",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
     "file-loader": "^1.1.5",
     "npm-run-all": "^4.1.2",
+    "postcss-color-function": "^4.0.1",
     "postcss-loader": "^2.0.8",
     "precss": "^2.0.0",
     "rimraf": "^2.6.2",

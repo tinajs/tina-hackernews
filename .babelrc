@@ -5,7 +5,18 @@
       {
         "target": {
           "node": "7"
-        }
+        },
+        "loose": true
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    [
+      "transform-runtime",
+      {
+        "polyfill": true,
+        "regenerator": true
       }
     ]
   ]

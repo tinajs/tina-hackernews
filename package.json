@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tinajs/tina": "^0.0.1",
+    "@tinajs/tina-router": "^0.0.1",
     "es6-promise": "^4.1.1",
     "keymirror": "^0.1.1",
     "p-queue": "^2.3.0",

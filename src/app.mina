@@ -2,7 +2,8 @@
 {
   "window": {
     "navigationBarBackgroundColor": "#ff6600",
-    "navigationBarTitleText": "Hackernews"
+    "navigationBarTitleText": "Hackernews",
+    "backgroundColor": "#34495e"
   },
   "pages": [
     "pages/top"
@@ -11,9 +12,13 @@
 </config>
 
 <script>
+import { Page } from '@tinajs/tina'
+import router from '@tinajs/tina-router'
+
+Page.use(router())
+
 App({
   onLaunch() {
-
   },
 })
 </script>

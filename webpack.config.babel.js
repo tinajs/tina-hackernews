@@ -63,6 +63,7 @@ export default {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common.js',
+      minChunks: 2,
     }),
   ],
 }

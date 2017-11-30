@@ -54,13 +54,14 @@ new Page(wuex.connect({
 
 <style lang="less">
 .user-view {
-  box-shadow: 0 2px 2px 0 #eee;
   background-color: #fff;
   box-sizing: border-box;
-  padding: 2em 3em;
+  padding: 32px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  font-size: 12px;
   .title {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 18px;
   }
   .meta {
     list-style-type: none;

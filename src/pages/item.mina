@@ -1,3 +1,11 @@
+<config>
+{
+  "usingComponents": {
+    "hn-comment": "components/comment"
+  }
+}
+</config>
+
 <template>
   <view class="item-view" wx:if="{{ item }}">
     <view class="item-view-header">
@@ -17,13 +25,14 @@
         <text hidden="{{ !isLoading }}"> | Loading ... </text>
       </view>
       <view wx:if="!isLoading" class="comment-children">
-        comments here
+        <hn-comment wx:for="{{ item.comments }}" wx:for-item="comment" wx:key="id" comment="{{ comment }}" />
       </view>
     </view>
   </view>
 </template>
 
 <script>
+import { decode } from 'he'
 import { Page } from '@tinajs/tina'
 import wechat from '../libraries/wechat'
 import { wuex } from '../store'
@@ -53,26 +62,54 @@ new Page(wuex.connect({
         ...item,
         host: host(item.url || ''),
         timeAgo: timeAgo(item.time),
+        comments: (item.kids || []).map((id) => {
+          const found = wuex.state.items.find((item) => item.id === id) || {}
+          const repliesCount = item.kids && item.kids.length || 0
+          return {
+            ...found,
+            timeAgo: timeAgo(found.time),
+            decodedText: decode(found.text || ''),
+            pluralizeKidsCount: repliesCount + (repliesCount === 1 ? ' reply' : ' replies'),
+          }
+        }),
       }
     }
   },
 
   onLoad () {
-    this.load()
+    this.fetch().then(() => this.fetchComments())
   },
 
   methods: {
-    load () {
-      if (this.data.isLoading) {
-        return
-      }
+    fetch () {
       this.setData({ isLoading: true })
       return this.fetchItems({ ids: [this.$route.query.id] })
         .finally(wechat.loading())
         .then(() => this.setData({ isLoading: false }))
     },
+
+    fetchComments () {
+      if (!this.data.item || !this.data.item.kids) {
+        return
+      }
+      this.setData({ isLoading: true })
+      fetchComments(wuex, this.data.item)
+        .finally(wechat.loading())
+        .then(() => this.setData({ isLoading: false }))
+    },
   }
 }))
+
+function fetchComments (store, item) {
+  if (item && item.kids) {
+    return store.dispatch('fetchItems', {
+      ids: item.kids
+    }).then(() => Promise.all(item.kids.map(id => {
+      return fetchComments(store, store.state.items.find((item) => item.id === id))
+    })))
+  }
+}
+
 </script>
 
 <style lang="less">
@@ -106,11 +143,10 @@ new Page(wuex.connect({
   padding: 0 32px 16px;
 }
 .item-view-comments-header {
-  margin: 0 0 1em;
+  margin: 0;
   font-size: 14px;
   padding: 1em 0;
   position: relative;
-  border-bottom: 1px solid #efefef;
   .spinner {
     display: inline-block;
     margin: -15px 0;

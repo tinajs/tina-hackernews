@@ -1,0 +1,97 @@
+<config>
+{
+  "component": true
+}
+</config>
+
+<template>
+  <view wx:if="{{ comment && comment.id }}" class="comment">
+    <view class="meta">
+      <view class="by link" bindtap="tapBy">{{ comment.by }}</view>
+      {{ comment.timeAgo }} ago
+    </view>
+    <view class="text"><rich-text nodes="{{ comment.decodedText }}" /></view>
+    <view wx:if="{{ comment.kids && comment.kids.length }}" class="toggle {{ open ? 'open' : '' }}">
+      <view bindtap="tapToggle">{{
+        open
+            ? '[-]'
+            : '[+] ' + comment.pluralizeKidsCount + ' collapsed'
+      }}</view>
+    </view>
+    <view class="comment-children" hidden="{{ !open }}">
+      comments here
+    </view>
+  </view>
+</template>
+
+<script>
+Component({
+  properties: {
+    comment: {
+      type: Object,
+      value: {},
+    },
+  },
+  data: {
+    open: false,
+  },
+  methods: {
+    tapToggle: function () {
+      this.setData({ open: !this.data.open })
+    },
+    tapBy: function () {
+      this.triggerEvent('tapBy')
+    },
+  }
+})
+</script>
+
+<style lang="less">
+.comment-children {
+  .comment-children {
+    margin-left: 1.5em;
+  }
+}
+.comment {
+  border-top: 1px solid #eee;
+  position: relative;
+  margin-bottom: 1.6em;
+  .meta, .text, .toggle {
+    margin: 1em 0;
+  }
+  .meta {
+    color: #828282;
+    view {
+      display: inline;
+    }
+    .link {
+      color: #828282;
+      text-decoration: underline;
+    }
+  }
+  .text {
+    overflow-wrap: break-word;
+    line-height: 1.6em;
+    .link:active {
+      color: #ff6600;
+    }
+    pre {
+      white-space: pre-wrap;
+    }
+  }
+  .toggle {
+    background-color: #fffbf2;
+    padding: .3em .5em;
+    border-radius: 4px;
+    .link {
+      color: #828282;
+      cursor: pointer;
+    }
+    &.open {
+      padding: 0;
+      background-color: transparent;
+      margin-bottom: -0.5em;
+    }
+  }
+}
+</style>

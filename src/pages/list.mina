@@ -19,7 +19,7 @@
     </view>
     <view class="news-list">
       <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" item="{{ item }}" data-item="{{ item }}" bindtapby="tapItemBy" />
-      <view wx:if="{{ hasMore }}" class="more"> Loading ... </view>
+      <view wx:if="{{ hasMore }}" class="more" bindtap="tapMore"> {{ isLoadingMore || isReloading ? 'Loading ...' : 'more' }} </view>
     </view>
   </view>
 </template>
@@ -52,7 +52,8 @@ new Page(wuex.connect({
   },
 })({
   data: {
-    isLoading: false,
+    isReloading: false,
+    isLoadingMore: false,
   },
 
   compute (state) {
@@ -68,47 +69,51 @@ new Page(wuex.connect({
   },
 
   onLoad () {
-    this.fetchListData({ channel: DEFAULT_CHANNEL })
-      .finally(this.loading())
+    this.reload({ channel: DEFAULT_CHANNEL })
   },
 
   onPullDownRefresh () {
-    let loaded = this.loading()
-    this.fetchListData({ channel: this.data.channel })
-      .finally(() => {
-        wx.stopPullDownRefresh()
-        loaded()
-      })
+    this.reload({ channel: this.data.channel })
+      .then(() => wx.stopPullDownRefresh())
   },
 
-  onReachBottom (event) {
-    if (this.data.isLoading) {
-      return
-    }
-    this.fetchNextPage()
-      .finally(this.loading())
+  onReachBottom () {
+    this.more()
   },
 
   methods: {
-    loading () {
-      let loaded = wechat.loading()
-      this.setData({ isLoading: true })
-      return () => loaded(() => this.setData({ isLoading: false }))
-    },
-
     tapType (event) {
       let channel = event.currentTarget.dataset.channel
       if (channel === this.data.channel) {
         return
       }
-      this.fetchListData({ channel })
-        .finally(this.loading())
+      this.reload({ channel })
     },
 
     tapItemBy (event) {
       let item = event.currentTarget.dataset.item
       this.$router.navigate(`/pages/user?id=${item.by}`)
     },
+
+    reload ({ channel }) {
+      if (this.data.isReloading) {
+        return
+      }
+      this.setData({ isReloading: true })
+      return this.fetchListData({ channel })
+        .finally(wechat.loading())
+        .then(() => this.setData({ isReloading: false }))
+    },
+
+    more () {
+      if (this.data.isLoadingMore) {
+        return
+      }
+      this.setData({ isLoadingMore: true })
+      this.fetchNextPage()
+        .finally(wechat.loading())
+        .then(() => this.setData({ isLoadingMore: false }))
+    }
   },
 }))
 </script>

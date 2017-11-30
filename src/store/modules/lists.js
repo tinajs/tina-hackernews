@@ -5,7 +5,7 @@ import {
 } from '../../api'
 
 const MINIMUM_PAGE = 1
-const PAGE_SIZE = 50
+const PAGE_SIZE = 10
 
 const DEFAULT_CHANNEL = 'top'
 const DEFAULT_PAGE = MINIMUM_PAGE

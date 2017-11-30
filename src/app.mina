@@ -6,7 +6,7 @@
     "backgroundColor": "#34495e"
   },
   "pages": [
-    "pages/top"
+    "pages/list"
   ]
 }
 </config>

@@ -1,0 +1,125 @@
+<template>
+  <view class="item-view" wx:if="{{ item }}">
+    <view class="item-view-header">
+      <view class="title" data-url="{{ item.url }}">{{ item.title }}</view>
+      <view wx:if="{{ item.url }}" class="host">
+        ({{ item.host }})
+      </view>
+      <view class="meta">
+        {{ item.score }} points
+        | by <view class="by link">{{ item.by }}</view>
+        {{ item.timeAgo }} ago
+      </view>
+    </view>
+    <view class="item-view-comments">
+      <view class="item-view-comments-header">
+        {{ item.kids ? item.descendants + ' comments' : 'No comments yet.' }}
+        <text hidden="{{ !isLoading }}"> | Loading ... </text>
+      </view>
+      <view wx:if="!isLoading" class="comment-children">
+        comments here
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import { Page } from '@tinajs/tina'
+import wechat from '../libraries/wechat'
+import { wuex } from '../store'
+import { host, timeAgo } from '../utils/filters'
+
+new Page(wuex.connect({
+  state: function mappingState (state) {
+    return {
+      item: state.items.find((item) => item.id + '' === this.$route.query.id) || {},
+    }
+  },
+  actions: function mappingActions (actions) {
+    return {
+      fetchItems: actions.fetchItems,
+    }
+  },
+})({
+  data: {
+    isLoading: false,
+  },
+
+  compute (state) {
+    let item = state.item || {}
+    return {
+      id: this.$route.query.id,
+      item: {
+        ...item,
+        host: host(item.url || ''),
+        timeAgo: timeAgo(item.time),
+      }
+    }
+  },
+
+  onLoad () {
+    this.load()
+  },
+
+  methods: {
+    load () {
+      if (this.data.isLoading) {
+        return
+      }
+      this.setData({ isLoading: true })
+      return this.fetchItems({ ids: [this.$route.query.id] })
+        .finally(wechat.loading())
+        .then(() => this.setData({ isLoading: false }))
+    },
+  }
+}))
+</script>
+
+<style lang="less">
+.item-view-header {
+  background-color: #fff;
+  padding: 24px 32px 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  font-size: 12px;
+  .title {
+    display: inline;
+    font-size: 18px;
+    margin: 0;
+    margin-right: .5em;
+  }
+  .host, .meta, .meta .link {
+    color: #828282;
+  }
+  .meta .link {
+    text-decoration: underline;
+  }
+  .host, .meta view {
+    display: inline;
+  }
+  .meta {
+    margin: 16px 0;
+  }
+}
+.item-view-comments {
+  background-color: #fff;
+  margin-top: 14px;
+  padding: 0 32px 16px;
+}
+.item-view-comments-header {
+  margin: 0 0 1em;
+  font-size: 14px;
+  padding: 1em 0;
+  position: relative;
+  border-bottom: 1px solid #efefef;
+  .spinner {
+    display: inline-block;
+    margin: -15px 0;
+  }
+}
+.comment-children {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+</style>

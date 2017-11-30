@@ -18,7 +18,7 @@
       <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
     </view>
     <view class="news-list">
-      <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" item="{{ item }}" data-item="{{ item }}" bindtapby="tapItemBy" />
+      <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" item="{{ item }}" data-item="{{ item }}" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
       <view wx:if="{{ hasMore }}" class="more" bindtap="tapMore"> {{ isLoadingMore || isReloading ? 'Loading ...' : 'more' }} </view>
     </view>
   </view>
@@ -93,6 +93,11 @@ new Page(wuex.connect({
     tapItemBy (event) {
       let item = event.currentTarget.dataset.item
       this.$router.navigate(`/pages/user?id=${item.by}`)
+    },
+
+    tapItemComments (event) {
+      let item = event.currentTarget.dataset.item
+      this.$router.navigate(`/pages/item?id=${item.id}`)
     },
 
     reload ({ channel }) {

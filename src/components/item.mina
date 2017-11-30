@@ -15,7 +15,7 @@
       <view wx:if="{{ item.type !== 'job' }}" class="by link" bindtap="tapBy">by {{ item.by }}</view>
       <view class="time"> {{ item.timeAgo }} ago </view>
       <view wx:if="{{ item.type !== 'job' }}" class="comments-link">
-        | <view class="link"> {{ item.descendants }} comments </view>
+        | <view class="link" bindtap="tapComments"> {{ item.descendants }} comments </view>
       </view>
     </view>
     <view wx:if="{{ item.type !== 'story' }}" class="label">{{ item.type }}</view>
@@ -33,6 +33,9 @@ Component({
   methods: {
     tapBy: function () {
       this.triggerEvent('tapby')
+    },
+    tapComments: function () {
+      this.triggerEvent('tapcomments')
     },
   }
 })

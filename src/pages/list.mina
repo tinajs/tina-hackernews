@@ -1,8 +1,11 @@
 <config>
 {
-  "navigationBarTitleText": "HackerNews",
+  "navigationBarTitleText": "Hacker News",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 192
+  "onReachBottomDistance": 192,
+  "usingComponents": {
+    "hn-item": "components/item"
+  }
 }
 </config>
 
@@ -16,21 +19,7 @@
       <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
     </view>
     <view class="news-list">
-      <view wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="news-item" data-id="{{ item.id }}">
-        <view class="score">{{ item.score }}</view>
-        <view class="title">
-          <view> {{ item.title }} </view>
-          <view class="host"> {{ item.host }} </view>
-        </view>
-        <view class="meta">
-          <view wx:if="{{ item.type !== 'job' }}" class="by link"> by {{ item.by }} </view>
-          <view class="time"> {{ item.timeAgo }} ago </view>
-          <view wx:if="{{ item.type !== 'job' }}" class="comments-link">
-            | <view class="link"> {{ item.descendants }} comments </view>
-          </view>
-        </view>
-        <view wx:if="{{ item.type !== 'story' }}" class="label">{{ item.type }}</view>
-      </view>
+      <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" item="{{ item }}" />
       <view wx:if="{{ hasMore }}" class="more"> Loading ... </view>
     </view>
   </view>
@@ -148,46 +137,6 @@ new Page(wuex.connect({
 
 .news-list {
   padding-top: 36px;
-  .news-item {
-    background-color: #fff;
-    padding: 20px 30px 20px 80px;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    line-height: 20px;
-    .score {
-      color: #ff6600;
-      font-size: 1.1em;
-      font-weight: 700;
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 80px;
-      text-align: center;
-      margin-top: -10px;
-    }
-    .meta, .host {
-      font-size: .85em;
-      color: #828282;
-      a {
-        color: #828282;
-        text-decoration: underline;
-        &:hover {
-          color: #ff6600;
-        }
-      }
-    }
-    .title, .meta {
-      view {
-        display: inline;
-      }
-    }
-    .meta, .label {
-      display: inline;
-    }
-    .link {
-      text-decoration: underline;
-    }
-  }
   .more {
     font-size: 12px;
     height: 96px;

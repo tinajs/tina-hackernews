@@ -1,7 +1,7 @@
 <template>
   <view class="user-view">
     <view wx:if="{{ user }}">
-      <view class="title">User : {{ user.id }}</view>
+      <view class="title">User : {{ id }}</view>
       <view class="meta">
         <view class="item"><text class="label">Created:</text> {{ user.createdTimeAgo }} ago</view>
         <view class="item"><text class="label">Karma:</text> {{ user.karma }}</view>
@@ -36,6 +36,7 @@ new Page(wuex.connect({
   compute (state) {
     let user = state.user || {}
     return {
+      id: this.$route.query.id,
       user: {
         ...user,
         createdTimeAgo: timeAgo(user.created),

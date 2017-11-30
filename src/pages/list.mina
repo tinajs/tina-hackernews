@@ -1,6 +1,5 @@
 <config>
 {
-  "navigationBarTitleText": "Hacker News",
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 192,
   "usingComponents": {
@@ -27,7 +26,6 @@
 
 <script>
 import { Page } from '@tinajs/tina'
-import throttle from 'throttleit'
 import wechat from '../libraries/wechat'
 import { wuex } from '../store'
 import { host, timeAgo } from '../utils/filters'

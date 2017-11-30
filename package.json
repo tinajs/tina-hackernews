@@ -21,7 +21,6 @@
     "keymirror": "^0.1.1",
     "p-queue": "^2.3.0",
     "p-timeout": "^2.0.1",
-    "throttleit": "^1.0.0",
     "underscore": "^1.8.3",
     "uniq": "^1.0.1"
   },

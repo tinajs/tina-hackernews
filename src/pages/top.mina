@@ -1,6 +1,8 @@
 <config>
 {
-  "navigationBarTitleText": "Hackernews"
+  "navigationBarTitleText": "HackerNews",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 192
 }
 </config>
 
@@ -27,14 +29,16 @@
             | <view class="link"> {{ item.descendants }} comments </view>
           </view>
         </view>
-        <view class="label" wx:if="{{ item.type !== 'story' }}">{{ item.type }}</view>
+        <view wx:if="{{ item.type !== 'story' }}" class="label">{{ item.type }}</view>
       </view>
+      <view wx:if="{{ hasMore }}" class="more"> Loading ... </view>
     </view>
   </view>
 </template>
 
 <script>
 import { Page } from '@tinajs/tina'
+import throttle from 'throttleit'
 import wechat from '../libraries/wechat'
 import { wuex } from '../store'
 import { host, timeAgo } from '../utils/filters'
@@ -50,14 +54,20 @@ new Page(wuex.connect({
   getters: function mappingGetters (getters) {
     return {
       items: getters.activeItems(),
+      hasMore: getters.hasMoreItemsOfActiveChannel(),
     }
   },
   actions: function mappingActions (actions) {
     return {
       fetchListData: actions.fetchListData,
+      fetchNextPage: actions.fetchNextPage,
     }
   },
 })({
+  data: {
+    isLoading: false,
+  },
+
   compute (state) {
     return {
       items: (state.items || []).map((item) => {
@@ -72,34 +82,52 @@ new Page(wuex.connect({
 
   onLoad () {
     this.fetchListData({ channel: DEFAULT_CHANNEL })
-      .finally(wechat.loading())
+      .finally(this.loading())
+  },
+
+  onPullDownRefresh () {
+    let loaded = this.loading()
+    this.fetchListData({ channel: this.data.channel })
+      .finally(() => {
+        wx.stopPullDownRefresh()
+        loaded()
+      })
+  },
+
+  onReachBottom (event) {
+    if (this.data.isLoading) {
+      return
+    }
+    this.fetchNextPage()
+      .finally(this.loading())
   },
 
   methods: {
+    loading () {
+      let loaded = wechat.loading()
+      this.setData({ isLoading: true })
+      return () => loaded(() => this.setData({ isLoading: false }))
+    },
+
     tapType (event) {
       let channel = event.currentTarget.dataset.channel
       if (channel === this.data.channel) {
         return
       }
       this.fetchListData({ channel })
-        .finally(wechat.loading())
+        .finally(this.loading())
     },
   },
 }))
 </script>
 
 <style lang="less">
-.view {
+.header {
   position: fixed;
+  z-index: 1;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.header {
   display: flex;
   background-color: #ff6600;
   justify-content: space-around;
@@ -119,10 +147,7 @@ new Page(wuex.connect({
 }
 
 .news-list {
-  flex: 1;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  padding-top: 36px;
   .news-item {
     background-color: #fff;
     padding: 20px 30px 20px 80px;
@@ -162,6 +187,13 @@ new Page(wuex.connect({
     .link {
       text-decoration: underline;
     }
+  }
+  .more {
+    font-size: 12px;
+    height: 96px;
+    line-height: 96px;
+    text-align: center;
+    color: #999;
   }
 }
 </style>

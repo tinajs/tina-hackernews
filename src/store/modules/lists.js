@@ -5,7 +5,7 @@ import {
 } from '../../api'
 
 const MINIMUM_PAGE = 1
-const PAGE_SIZE = 10
+const PAGE_SIZE = 50
 
 const DEFAULT_CHANNEL = 'top'
 const DEFAULT_PAGE = MINIMUM_PAGE
@@ -21,11 +21,9 @@ const initialState = {
 }
 
 const getters = {
-  activeIds: (state) => {
-    const channel = state.activeChannel
-    const page = state.activePage
-    return state[channel].slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-  },
+  activeIds: (state) => state[state.activeChannel].slice(0, state.activePage * PAGE_SIZE),
+  maxPageOfActiveChannel: (state) => Math.ceil(state[state.activeChannel].length / PAGE_SIZE),
+  hasMoreItemsOfActiveChannel: (state, getters) => state.activePage < getters.maxPageOfActiveChannel(),
 }
 
 const actions = {
@@ -35,12 +33,8 @@ const actions = {
       .then((ids) => commit(types.SET_LIST, { channel, ids }))
       .then(() => dispatch('ensureActiveItems'))
   },
-  previousPage ({ commit, state, dispatch }) {
-    commit(types.SET_PAGE, { page: Math.max(state.activePage - 1, MINIMUM_PAGE) })
-    return dispatch('ensureActiveItems')
-  },
-  nextPage ({ commit, state, dispatch }) {
-    commit(types.SET_PAGE, { page: Math.min(state.activePage + 1, (state[state.activeChannel] || []).length) })
+  fetchNextPage ({ commit, state, dispatch, getters }) {
+    commit(types.SET_ACTIVE_PAGE, { page: Math.min(state.activePage + 1, getters.maxPageOfActiveChannel()) })
     return dispatch('ensureActiveItems')
   },
 }

@@ -71,7 +71,7 @@ function initialize () {
         wechat.showNavigationBarLoading()
       }
       ++stack
-      return function loaded () {
+      return function loaded (onLoaded) {
         if (--stack > 0) {
           return
         }
@@ -80,6 +80,7 @@ function initialize () {
         } else {
           wechat.hideNavigationBarLoading()
         }
+        onLoaded()
       }
     }
   })()

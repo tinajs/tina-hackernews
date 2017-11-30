@@ -12,7 +12,7 @@
       <view class="host"> {{ item.host }} </view>
     </view>
     <view class="meta">
-      <view wx:if="{{ item.type !== 'job' }}" class="by link"> by {{ item.by }} </view>
+      <view wx:if="{{ item.type !== 'job' }}" class="by link" bindtap="tapBy"> by {{ item.by }} </view>
       <view class="time"> {{ item.timeAgo }} ago </view>
       <view wx:if="{{ item.type !== 'job' }}" class="comments-link">
         | <view class="link"> {{ item.descendants }} comments </view>
@@ -30,6 +30,11 @@ Component({
       value: {},
     },
   },
+  methods: {
+    tapBy: function () {
+      this.triggerEvent('tapby')
+    },
+  }
 })
 </script>
 

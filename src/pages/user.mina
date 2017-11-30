@@ -1,0 +1,78 @@
+<template>
+  <view class="user-view">
+    <view wx:if="{{ user }}">
+      <view class="title">User : {{ user.id }}</view>
+      <view class="meta">
+        <view class="item"><text class="label">Created:</text> {{ user.createdTimeAgo }} ago</view>
+        <view class="item"><text class="label">Karma:</text> {{ user.karma }}</view>
+        <view wx:if="user.about" class="about"><rich-text nodes="{{ user.decodedAbout }}" /></view>
+      </view>
+    </view>
+    <view wx:elif="{{ user === false }}">
+      <view class="title">User not found.</view>
+    </view>
+  </view>
+</template>
+
+<script>
+import { decode } from 'he'
+import { Page } from '@tinajs/tina'
+import wechat from '../libraries/wechat'
+import { wuex } from '../store'
+import { timeAgo } from '../utils/filters'
+
+new Page(wuex.connect({
+  state: function mappingState (state) {
+    return {
+      user: state.users.find((user) => user.id === this.$route.query.id) || {},
+    }
+  },
+  actions: function mappingActions (actions) {
+    return {
+      fetchUser: actions.fetchUser,
+    }
+  },
+})({
+  compute (state) {
+    let user = state.user || {}
+    return {
+      user: {
+        ...user,
+        createdTimeAgo: timeAgo(user.created),
+        decodedAbout: decode(user.about || ''),
+      }
+    }
+  },
+
+  onLoad () {
+    this.fetchUser({ id: this.$route.query.id })
+      .finally(wechat.loading())
+  },
+}))
+</script>
+
+<style lang="less">
+.user-view {
+  box-shadow: 0 2px 2px 0 #eee;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 2em 3em;
+  .title {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  .meta {
+    list-style-type: none;
+    margin: 15px 0;
+    padding: 0;
+  }
+  .label {
+    display: inline-block;
+    min-width: 4em;
+  }
+  .about {
+    margin: 1em 0;
+    line-height: 1.6em;
+  }
+}
+</style>

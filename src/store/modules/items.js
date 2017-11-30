@@ -6,13 +6,11 @@ import {
 
 const CACHE_EXPIRES_IN =  1000 * 60 * 3
 
-const initialState = {
-  items: [],
-}
+const initialState = []
 
 const getters = {
   activeItems: (state, getters) => {
-    return getters.activeIds().map(id => state.items.find((item) => item.id === id)).filter(_ => _)
+    return getters.activeIds().map(id => state.find((item) => item.id === id)).filter(_ => _)
   },
 }
 
@@ -25,7 +23,7 @@ const actions = {
   fetchItems ({ commit, state }, { ids }) {
     const now = Date.now()
     ids = ids.filter(id => {
-      const item = state.items.find((item) => item.id === id)
+      const item = state.find((item) => item.id === id)
       if (!item) {
         return true
       }
@@ -44,10 +42,7 @@ const actions = {
 
 const mutations = {
   [types.SET_ITEMS] (state, { items }) {
-    return {
-      ...state,
-      items: uniq([ ...state.items, ...items ], (l, r) => l.id === r.id ? 0 : -1),
-    }
+    return uniq([ ...state, ...items ], (l, r) => l.id === r.id ? 0 : -1)
   },
 }
 

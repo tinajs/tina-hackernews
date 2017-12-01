@@ -32,7 +32,7 @@ import { host, timeAgo } from '../utils/filters'
 
 const DEFAULT_CHANNEL = 'top'
 
-new Page(wuex.connect({
+Page.define(wuex.connect({
   state: function mappingState (state) {
     return {
       channel: state.lists.activeChannel,

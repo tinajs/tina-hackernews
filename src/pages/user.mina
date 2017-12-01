@@ -21,7 +21,7 @@ import wechat from '../libraries/wechat'
 import { wuex } from '../store'
 import { timeAgo } from '../utils/filters'
 
-new Page(wuex.connect({
+Page.define(wuex.connect({
   state: function mappingState (state) {
     return {
       user: state.users.find((user) => user.id === this.$route.query.id) || {},

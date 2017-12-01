@@ -1,5 +1,8 @@
 <config>
 {
+  "usingComponents": {
+    "hn-comment": "components/comment"
+  },
   "component": true
 }
 </config>
@@ -19,21 +22,42 @@
       }}</view>
     </view>
     <view class="comment-children" hidden="{{ !open }}">
-      comments here
+      <hn-comment wx:for="{{ comment.kids }}" wx:key="*this" comment-id="{{ item }}" />
     </view>
   </view>
 </template>
 
 <script>
-Component({
+import { decode } from 'he'
+import { Component } from '@tinajs/tina'
+import { tinax } from '../store'
+import { host, timeAgo } from '../utils/filters'
+
+Component.define(tinax.connect({
+  state: function mappingState (state) {
+    return {
+      comment: state.items.find((item) => item.id === this.data.commentId) || {},
+    }
+  },
+})({
   properties: {
-    comment: {
-      type: Object,
-      value: {},
-    },
+    commentId: Number,
   },
   data: {
-    open: false,
+    open: true,
+    comment: {},
+  },
+  compute (data) {
+    let comment = data.comment || {}
+    let repliesCount = comment.kids && comment.kids.length || 0
+    return {
+      comment: {
+        ...comment,
+        timeAgo: timeAgo(comment.time),
+        decodedText: decode(comment.text || ''),
+        pluralizeKidsCount: repliesCount + (repliesCount === 1 ? ' reply' : ' replies'),
+      },
+    }
   },
   methods: {
     tapToggle: function () {
@@ -43,14 +67,12 @@ Component({
       this.triggerEvent('tapBy')
     },
   }
-})
+}))
 </script>
 
 <style lang="less">
 .comment-children {
-  .comment-children {
-    margin-left: 1.5em;
-  }
+  margin-left: 1.5em;
 }
 .comment {
   border-top: 1px solid #eee;

@@ -23,7 +23,9 @@
 </template>
 
 <script>
-Component({
+import { Component } from '@tinajs/tina'
+
+Component.define({
   properties: {
     item: {
       type: Object,

@@ -25,7 +25,7 @@
         <text hidden="{{ !isLoading }}"> | Loading ... </text>
       </view>
       <view wx:if="!isLoading" class="comment-children">
-        <hn-comment wx:for="{{ item.comments }}" wx:for-item="comment" wx:key="id" comment="{{ comment }}" />
+        <hn-comment wx:for="{{ item.kids }}" wx:key="*this" comment-id="{{ item }}" />
       </view>
     </view>
   </view>
@@ -62,16 +62,6 @@ Page.define(tinax.connect({
         ...item,
         host: host(item.url || ''),
         timeAgo: timeAgo(item.time),
-        comments: (item.kids || []).map((id) => {
-          const found = tinax.state.items.find((item) => item.id === id) || {}
-          const repliesCount = item.kids && item.kids.length || 0
-          return {
-            ...found,
-            timeAgo: timeAgo(found.time),
-            decodedText: decode(found.text || ''),
-            pluralizeKidsCount: repliesCount + (repliesCount === 1 ? ' reply' : ' replies'),
-          }
-        }),
       }
     }
   },

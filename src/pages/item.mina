@@ -15,7 +15,7 @@
       </view>
       <view class="meta">
         {{ item.score }} points
-        | by <view class="by link">{{ item.by }}</view>
+        | by <view class="by link" bindtap="tapBy">{{ item.by }}</view>
         {{ item.timeAgo }} ago
       </view>
     </view>
@@ -71,6 +71,14 @@ Page.define(tinax.connect({
   },
 
   methods: {
+    tapBy () {
+      let item = this.data.item || {}
+      if (!item.by) {
+        return
+      }
+      this.$router.navigate(`/pages/user?id=${item.by}`)
+    },
+
     fetch () {
       this.setData({ isLoading: true })
       return this.fetchItems({ ids: [this.$route.query.id] })

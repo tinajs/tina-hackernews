@@ -11,7 +11,7 @@
   <view wx:if="{{ comment && comment.id }}" class="comment">
     <view class="meta">
       <view class="by link" bindtap="tapBy">{{ comment.by }}</view>
-      {{ comment.timeAgo }} ago
+      <view class="time" bindtap="tapTime">{{ comment.timeAgo }} ago</view>
     </view>
     <view class="text"><rich-text nodes="{{ comment.decodedText }}" /></view>
     <view wx:if="{{ comment.kids && comment.kids.length }}" class="toggle {{ open ? 'open' : '' }}">
@@ -63,8 +63,12 @@ Component.define(tinax.connect({
     tapToggle: function () {
       this.setData({ open: !this.data.open })
     },
-    tapBy: function () {
-      this.triggerEvent('tapBy')
+    tapBy () {
+      let item = this.data.comment || {}
+      if (!item.by) {
+        return
+      }
+      this.$router.navigate(`/pages/user?id=${item.by}`)
     },
   }
 }))
@@ -89,6 +93,7 @@ Component.define(tinax.connect({
     .link {
       color: #828282;
       text-decoration: underline;
+      margin-right: 0.5em;
     }
   }
   .text {

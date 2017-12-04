@@ -14,11 +14,12 @@
 </config>
 
 <script>
-import { Page } from '@tinajs/tina'
+import { Page, Component } from '@tinajs/tina'
 import router from '@tinajs/tina-router'
 import Tinax from '@tinajs/tinax'
 
 Page.use(router())
+Component.use(router())
 
 App({
   onLaunch() {

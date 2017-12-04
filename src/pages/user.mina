@@ -18,10 +18,10 @@
 import { decode } from 'he'
 import { Page } from '@tinajs/tina'
 import wechat from '../libraries/wechat'
-import { wuex } from '../store'
+import { tinax } from '../store'
 import { timeAgo } from '../utils/filters'
 
-Page.define(wuex.connect({
+Page.define(tinax.connect({
   state: function mappingState (state) {
     return {
       user: state.users.find((user) => user.id === this.$route.query.id) || {},

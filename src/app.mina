@@ -16,7 +16,7 @@
 <script>
 import { Page } from '@tinajs/tina'
 import router from '@tinajs/tina-router'
-import Wuex from '@tinajs/wuex'
+import Tinax from '@tinajs/tinax'
 
 Page.use(router())
 

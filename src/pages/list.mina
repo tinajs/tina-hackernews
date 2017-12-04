@@ -27,12 +27,12 @@
 <script>
 import { Page } from '@tinajs/tina'
 import wechat from '../libraries/wechat'
-import { wuex } from '../store'
+import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
 const DEFAULT_CHANNEL = 'top'
 
-Page.define(wuex.connect({
+Page.define(tinax.connect({
   state: function mappingState (state) {
     return {
       channel: state.lists.activeChannel,

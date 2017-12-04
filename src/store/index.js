@@ -1,10 +1,10 @@
-import Wuex from '@tinajs/wuex'
+import Tinax from '@tinajs/tinax'
 
 import items from './modules/items'
 import lists from './modules/lists'
 import users from './modules/users'
 
-export const wuex = new Wuex({
+export const tinax = new Tinax({
   modules: {
     items,
     lists,
@@ -13,4 +13,4 @@ export const wuex = new Wuex({
 })
 
 // for debug
-global.wuex = wuex
+global.tinax = tinax

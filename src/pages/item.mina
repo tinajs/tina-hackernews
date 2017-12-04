@@ -35,10 +35,10 @@
 import { decode } from 'he'
 import { Page } from '@tinajs/tina'
 import wechat from '../libraries/wechat'
-import { wuex } from '../store'
+import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
-Page.define(wuex.connect({
+Page.define(tinax.connect({
   state: function mappingState (state) {
     return {
       item: state.items.find((item) => item.id + '' === this.$route.query.id) || {},
@@ -63,7 +63,7 @@ Page.define(wuex.connect({
         host: host(item.url || ''),
         timeAgo: timeAgo(item.time),
         comments: (item.kids || []).map((id) => {
-          const found = wuex.state.items.find((item) => item.id === id) || {}
+          const found = tinax.state.items.find((item) => item.id === id) || {}
           const repliesCount = item.kids && item.kids.length || 0
           return {
             ...found,
@@ -93,7 +93,7 @@ Page.define(wuex.connect({
         return
       }
       this.setData({ isLoading: true })
-      fetchComments(wuex, this.data.item)
+      fetchComments(tinax, this.data.item)
         .finally(wechat.loading())
         .then(() => this.setData({ isLoading: false }))
     },

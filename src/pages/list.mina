@@ -18,7 +18,7 @@
       <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
     </view>
     <view class="news-list">
-      <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" item="{{ item }}" data-item="{{ item }}" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
+      <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
       <view wx:if="{{ hasMore }}" class="more" bindtap="tapMore"> {{ isLoadingMore || isReloading ? 'Loading ...' : 'more' }} </view>
     </view>
   </view>
@@ -150,6 +150,13 @@ Page.define(tinax.connect({
 
 .news-list {
   padding-top: 36px;
+  .item {
+    display: block;
+    background-color: #fff;
+    &:nth-child(2n+1) {
+      background-color: #fafafa;
+    }
+  }
   .more {
     font-size: 12px;
     height: 96px;

@@ -22,7 +22,7 @@
     <view class="item-view-comments">
       <view class="item-view-comments-header">
         {{ item.kids ? item.descendants + ' comments' : 'No comments yet.' }}
-        <text hidden="{{ !isLoading }}"> | Loading ... </text>
+        <text class="loading" hidden="{{ !isLoading }}"> | Loading ... </text>
       </view>
       <view wx:if="!isLoading" class="comment-children">
         <hn-comment wx:for="{{ item.kids }}" wx:key="*this" comment-id="{{ item }}" />
@@ -113,7 +113,7 @@ function fetchComments (store, item) {
 <style lang="less">
 .item-view-header {
   background-color: #fff;
-  padding: 24px 32px 12px;
+  padding: 36px 32px 42px;
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
   font-size: 12px;
   .title {
@@ -132,22 +132,25 @@ function fetchComments (store, item) {
     display: inline;
   }
   .meta {
-    margin: 16px 0;
+    margin: 18px 0 0;
   }
 }
 .item-view-comments {
   background-color: #fff;
-  margin-top: 14px;
+  margin-top: 18px;
   padding: 0 32px 16px;
 }
 .item-view-comments-header {
   margin: 0;
   font-size: 14px;
-  padding: 1em 0;
+  padding: 1.5em 0;
   position: relative;
   .spinner {
     display: inline-block;
     margin: -15px 0;
+  }
+  .loading {
+    color: #999;
   }
 }
 .comment-children {

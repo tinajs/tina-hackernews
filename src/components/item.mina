@@ -9,13 +9,14 @@
     <view class="score">{{ item.score }}</view>
     <view class="title">
       <view> {{ item.title }} </view>
-      <view class="host"> {{ item.host }} </view>
+      <view class="host"> ({{ item.host }}) </view>
     </view>
     <view class="meta">
       <view wx:if="{{ item.type !== 'job' }}" class="by link" bindtap="tapBy">by {{ item.by }}</view>
-      <view class="time"> {{ item.timeAgo }} ago </view>
+      <view class="time">{{ item.timeAgo }} ago</view>
       <view wx:if="{{ item.type !== 'job' }}" class="comments-link">
-        | <view class="link" bindtap="tapComments"> {{ item.descendants }} comments </view>
+        <view>|</view>
+        <view class="link" bindtap="tapComments">{{ item.descendants }} comments</view>
       </view>
     </view>
     <view wx:if="{{ item.type !== 'story' }}" class="label">{{ item.type }}</view>
@@ -45,9 +46,8 @@ Component.define({
 
 <style lang="less">
 .news-item {
-  background-color: #fff;
   padding: 20px 30px 20px 80px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid hsl(24,43%,93%);
   position: relative;
   line-height: 20px;
   .score {
@@ -75,7 +75,11 @@ Component.define({
   .title, .meta {
     view {
       display: inline;
+      padding-right: 0.5em;
     }
+  }
+  .title {
+    margin-bottom: 0.5em;
   }
   .meta, .label {
     display: inline;

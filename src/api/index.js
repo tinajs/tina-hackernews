@@ -1,12 +1,12 @@
 import wechat from '../libraries/wechat'
 
-const CORS_PROXY_BASE_URL = 'https://cors.now.sh/'
-const HACKERNEWS_API_BASE_URL = 'https://hacker-news.firebaseio.com/v0/'
-const BASE_URL = `${CORS_PROXY_BASE_URL}${HACKERNEWS_API_BASE_URL}`
+const isDevtools = wx.getSystemInfoSync().platform === 'devtools'
+
+const HACKERNEWS_API_BASE_URL = isDevtools ? `https://cors.now.sh/https://hacker-news.firebaseio.com/v0/` : 'https://tina-hackernews.lab4310.com/hn/v0/'
 
 function fetch (child) {
   let options = {
-    url: `${BASE_URL}${child}.json`,
+    url: `${HACKERNEWS_API_BASE_URL}${child}.json`,
   }
   return wechat.request(options)
     .then(function (response) {

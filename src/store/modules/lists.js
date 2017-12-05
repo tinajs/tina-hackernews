@@ -1,7 +1,7 @@
 import _ from 'underscore'
 import types from '../types'
 import {
-  fetchIdsByChannel
+  fetchIdsByChannel,
 } from '../../api'
 
 const MINIMUM_PAGE = 1

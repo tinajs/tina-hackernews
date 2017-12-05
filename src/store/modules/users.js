@@ -1,7 +1,7 @@
 import uniq from 'uniq'
 import types from '../types'
 import {
-  fetchUser
+  fetchUser,
 } from '../../api'
 
 const CACHE_EXPIRES_IN =  1000 * 60 * 3

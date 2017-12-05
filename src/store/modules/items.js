@@ -1,7 +1,8 @@
 import uniq from 'uniq'
 import types from '../types'
 import {
-  fetchItems
+  fetchItems,
+  fetchItem,
 } from '../../api'
 
 const CACHE_EXPIRES_IN =  1000 * 60 * 3
@@ -10,8 +11,9 @@ const initialState = []
 
 const getters = {
   activeItems: (state, getters) => {
-    return getters.activeIds().map(id => state.find((item) => item.id === id)).filter(_ => _)
+    return getters.activeIds().map(id => state.find((item) => item.id === id) || { id, loading: true })
   },
+  getItem: (state) => (id) => state.find((item) => item.id === id) || { id, loading: true },
 }
 
 const actions = {
@@ -33,7 +35,7 @@ const actions = {
       return false
     })
     if (ids.length) {
-      return fetchItems(ids).then(items => commit(types.SET_ITEMS, { items }))
+      return Promise.all(ids.map((id) => fetchItem(id).then((item) => commit(types.SET_ITEM, { item }))))
     } else {
       return Promise.resolve()
     }
@@ -41,8 +43,8 @@ const actions = {
 }
 
 const mutations = {
-  [types.SET_ITEMS] (state, { items }) {
-    return uniq([ ...state, ...items ], (l, r) => l.id === r.id ? 0 : -1)
+  [types.SET_ITEM] (state, { item }) {
+    return uniq([ ...state, item ], (l, r) => l.id === r.id ? 0 : -1)
   },
 }
 

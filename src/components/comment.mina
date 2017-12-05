@@ -8,21 +8,26 @@
 </config>
 
 <template>
-  <view wx:if="{{ comment && comment.id }}" class="comment">
-    <view class="meta">
-      <view class="by link" bindtap="tapBy">{{ comment.by }}</view>
-      <view class="time" bindtap="tapTime">{{ comment.timeAgo }} ago</view>
+  <view>
+    <view wx:if="{{ !comment || comment.loading  }}" class="comment loading">
+      Loading...
     </view>
-    <view class="text"><rich-text nodes="{{ comment.decodedText }}" /></view>
-    <view wx:if="{{ comment.kids && comment.kids.length }}" class="toggle {{ open ? 'open' : '' }}">
-      <view bindtap="tapToggle">{{
-        open
-            ? '[-]'
-            : '[+] ' + comment.pluralizeKidsCount + ' collapsed'
-      }}</view>
-    </view>
-    <view class="comment-children" hidden="{{ !open }}">
-      <hn-comment wx:for="{{ comment.kids }}" wx:key="*this" comment-id="{{ item }}" />
+    <view wx:else class="comment">
+      <view class="meta">
+        <view class="by link" bindtap="tapBy">{{ comment.by }}</view>
+        <view class="time" bindtap="tapTime">{{ comment.timeAgo }} ago</view>
+      </view>
+      <view class="text"><rich-text nodes="{{ comment.decodedText }}" /></view>
+      <view wx:if="{{ comment.kids && comment.kids.length }}" class="toggle {{ open ? 'open' : '' }}">
+        <view bindtap="tapToggle">{{
+          open
+              ? '[-]'
+              : '[+] ' + comment.pluralizeKidsCount + ' collapsed'
+        }}</view>
+      </view>
+      <view class="comment-children" hidden="{{ !open }}">
+        <hn-comment wx:for="{{ comment.kids }}" wx:key="*this" comment-id="{{ item }}" />
+      </view>
     </view>
   </view>
 </template>
@@ -34,9 +39,9 @@ import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
 Component.define(tinax.connect({
-  state: function mappingState (state) {
+  getters: function mappingGetters (getters) {
     return {
-      comment: state.items.find((item) => item.id === this.data.commentId) || {},
+      comment: getters.getItem()(this.data.commentId),
     }
   },
 })({
@@ -81,7 +86,13 @@ Component.define(tinax.connect({
 .comment {
   border-top: 1px solid #eee;
   position: relative;
-  margin-bottom: 1.6em;
+  margin-bottom: 1.5em;
+  padding-top: 0.5em;
+  &.loading {
+    font-size: 12px;
+    color: #828282;
+    padding-top: 1.5em;
+  }
   .meta, .text, .toggle {
     margin: 1em 0;
   }

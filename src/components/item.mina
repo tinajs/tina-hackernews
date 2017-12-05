@@ -5,21 +5,26 @@
 </config>
 
 <template>
-  <view class="news-item" data-id="{{ item.id }}">
-    <view class="score">{{ item.score }}</view>
-    <view class="title">
-      <view> {{ item.title }} </view>
-      <view class="host"> ({{ item.host }}) </view>
+  <view>
+    <view wx:if="{{ !item || item.loading }}" class="news-item loading" data-id="{{ item.id }}">
+      Loading...
     </view>
-    <view class="meta">
-      <view wx:if="{{ item.type !== 'job' }}" class="by link" bindtap="tapBy">by {{ item.by }}</view>
-      <view class="time">{{ item.timeAgo }} ago</view>
-      <view wx:if="{{ item.type !== 'job' }}" class="comments-link">
-        <view>|</view>
-        <view class="link" bindtap="tapComments">{{ item.descendants }} comments</view>
+    <view wx:else class="news-item" data-id="{{ item.id }}">
+      <view class="score">{{ item.score }}</view>
+      <view class="title">
+        <view> {{ item.title }} </view>
+        <view class="host"> ({{ item.host }}) </view>
       </view>
+      <view class="meta">
+        <view wx:if="{{ item.type !== 'job' }}" class="by link" bindtap="tapBy">by {{ item.by }}</view>
+        <view class="time">{{ item.timeAgo }} ago</view>
+        <view wx:if="{{ item.type !== 'job' }}" class="comments-link">
+          <view>|</view>
+          <view class="link" bindtap="tapComments">{{ item.descendants }} comments</view>
+        </view>
+      </view>
+      <view wx:if="{{ item.type !== 'story' }}" class="label">{{ item.type }}</view>
     </view>
-    <view wx:if="{{ item.type !== 'story' }}" class="label">{{ item.type }}</view>
   </view>
 </template>
 
@@ -50,6 +55,12 @@ Component.define({
   border-bottom: 1px solid hsl(24,43%,93%);
   position: relative;
   line-height: 20px;
+  &.loading {
+    color: #828282;
+    font-size: 12px;
+    padding: 20px 30px;
+    text-align: center;
+  }
   .score {
     color: #ff6600;
     font-size: 1.1em;

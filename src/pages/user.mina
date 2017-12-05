@@ -49,6 +49,12 @@ Page.define(tinax.connect({
     this.fetchUser({ id: this.$route.query.id })
       .finally(wechat.loading())
   },
+  onShareAppMessage () {
+    let user = this.data.user || {}
+    return {
+      title: user.id ? `Hacker News - 「${user.id}」` : 'Hacker News',
+    }
+  },
 }))
 </script>
 

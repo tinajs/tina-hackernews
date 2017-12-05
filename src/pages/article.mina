@@ -1,0 +1,63 @@
+<config>
+{
+  "usingComponents": {
+    "hn-reader": "components/reader"
+  }
+}
+</config>
+
+<template>
+  <view class="article-view">
+    <hn-reader class="reader" article="{{ article }}" />
+    <view class="comments" bindtap="tapComments">Comments on Hacker News</view>
+  </view>
+</template>
+
+<script>
+import { decode } from 'he'
+import { Page } from '@tinajs/tina'
+import wechat from '../libraries/wechat'
+
+import { fetchArticle } from '../api'
+
+Page.define(({
+  data: {
+    article: {},
+  },
+
+  onLoad () {
+    fetchArticle(this.$route.query.id)
+      .then((article) => this.setData({ article }))
+      .finally(wechat.loading())
+  },
+
+  methods: {
+    tapComments () {
+      this.$router.navigate(`/pages/item?id=${this.$route.query.id}`)
+    },
+  },
+}))
+</script>
+
+<style lang="less">
+.article-view {
+  .reader {
+    display: block;
+    margin-bottom: 48px;
+  }
+  .comments {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:color(#ff6600 a(90%));
+    color:#fff;
+    font-size:12px;
+    text-decoration: underline;
+  }
+}
+</style>

@@ -22,6 +22,7 @@
     "keymirror": "^0.1.1",
     "p-queue": "^2.3.0",
     "p-timeout": "^2.0.1",
+    "posthtml": "^0.10.1",
     "underscore": "^1.8.3",
     "uniq": "^1.0.1"
   },

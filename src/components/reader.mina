@@ -1,0 +1,140 @@
+<config>
+{
+  "component": true
+}
+</config>
+
+<template>
+  <view class="reader-component">
+    <view wx:if="{{ !article || (!article.title && !article.content) }}" class="loading">
+      Loading...
+    </view>
+    <view wx:else>
+      <view class="title">{{ article.title }}</view>
+      <view class="meta">
+        original url: <text class="url">{{ article.url }}</text>
+      </view>
+      <rich-text class="reader" nodes="{{ nodes }}" />
+      <view class="meta">
+        source from: <text class="url">{{ article.domain }}</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import { decode } from 'he'
+import { Component } from '@tinajs/tina'
+import posthtml from 'posthtml'
+
+function addTagnameToClass (prefix = '') {
+  return (tree) => {
+    return tree.walk((node) => {
+      var classnames
+      if (typeof node !== 'object') {
+        return node
+      }
+      if (!node.attrs) {
+        node.attrs = {}
+      }
+      classnames = (node.attrs.class || '').trim().split(/\s+/g)
+      node.attrs.class = classnames.concat(prefix + node.tag).join(' ').trim()
+      return node
+    })
+  }
+}
+
+function postRichText (content) {
+  return posthtml().use(addTagnameToClass()).process(content, { sync: true }).html
+}
+
+Component.define(({
+  properties: {
+    article: {
+      type: Object,
+      observer: function () {
+        this.__tina_component__.setData({})
+      },
+    },
+  },
+  data: {
+    nodes: '',
+  },
+
+  compute (data) {
+    return {
+      nodes: postRichText(decode(data.article.content || '')),
+    }
+  },
+}))
+</script>
+
+<style lang="less">
+.reader-component {
+  background-color: #fff;
+  padding: 32px;
+  color: #333;
+  .loading {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+  }
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1em;
+    margin-bottom: 1em;
+  }
+  .meta {
+    font-size: 12px;
+    color: #666;
+    margin: 2em 0 3em;
+    .url {
+      text-decoration: underline;
+    }
+  }
+  .reader {
+    line-height: 1.8em;
+    font-size: 14px;
+    .div, .p {
+      line-height: 1.8em;
+    }
+    .article, .section, .p {
+      margin-bottom: 1em;
+    }
+    .small {
+      font-size: 0.5em;
+    }
+    .a {
+      color: color(#ff6600 tint(50%));
+      text-decoration: underline;
+    }
+    .img {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      margin: 1em 0;
+    }
+    .h1, .h2, .h3, .h4, .h5 {
+      margin-top: 1em;
+      line-height: 3em;
+      font-weight: bold;
+    }
+    .h1 {
+      font-size: 22px;
+    }
+    .h2 {
+      font-size: 20px;
+    }
+    .h3 {
+      font-size: 18px;
+    }
+    .h4 {
+      font-size: 16px;
+    }
+    .h5 {
+      font-size: 15px;
+    }
+  }
+}
+</style>

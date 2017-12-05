@@ -8,7 +8,8 @@
   "pages": [
     "pages/list",
     "pages/user",
-    "pages/item"
+    "pages/item",
+    "pages/article"
   ]
 }
 </config>
@@ -28,8 +29,10 @@ App({
 </script>
 
 <style>
+@import './assets/opensans.css';
+
 page {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
   background-color: color(#eceef1 tint(30%));
   margin: 0;

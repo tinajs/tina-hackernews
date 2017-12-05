@@ -9,7 +9,7 @@
 <template>
   <view class="item-view" wx:if="{{ item }}">
     <view class="item-view-header">
-      <view class="title" data-url="{{ item.url }}">{{ item.title }}</view>
+      <view class="title" bindtap="tapTitle">{{ item.title }}</view>
       <view wx:if="{{ item.url }}" class="host">
         ({{ item.host }})
       </view>
@@ -77,6 +77,13 @@ Page.define(tinax.connect({
         return
       }
       this.$router.navigate(`/pages/user?id=${item.by}`)
+    },
+    tapTitle () {
+      let item = this.data.item || {}
+      if (!item.id || !item.url) {
+        return
+      }
+      this.$router.navigate(`/pages/article?id=${item.id}`)
     },
 
     fetch () {

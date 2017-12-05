@@ -3,15 +3,17 @@ import wechat from '../libraries/wechat'
 const isDevtools = wx.getSystemInfoSync().platform === 'devtools'
 
 const HACKERNEWS_API_BASE_URL = isDevtools ? `https://cors.now.sh/https://hacker-news.firebaseio.com/v0/` : 'https://tina-hackernews.lab4310.com/hn/v0/'
+const ARTICLE_API_BASE_URL = 'https://tina-hackernews.lab4310.com/readability/'
 
-function fetch (child) {
-  let options = {
-    url: `${HACKERNEWS_API_BASE_URL}${child}.json`,
-  }
-  return wechat.request(options)
+function got (url) {
+  return wechat.request({ url })
     .then(function (response) {
       return response.data || {}
     })
+}
+
+function fetch (child) {
+  return got(`${HACKERNEWS_API_BASE_URL}${child}.json`)
 }
 
 export function fetchIdsByChannel (channel) {
@@ -37,4 +39,8 @@ export function fetchItems (ids) {
 
 export function fetchUser (id) {
   return fetch(`user/${id}`)
+}
+
+export function fetchArticle (id) {
+  return got(`${ARTICLE_API_BASE_URL}${id}`)
 }

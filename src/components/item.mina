@@ -11,7 +11,7 @@
     </view>
     <view wx:else class="news-item" data-id="{{ item.id }}">
       <view class="score">{{ item.score }}</view>
-      <view class="title">
+      <view class="title" bindtap="tapTitle">
         <view> {{ item.title }} </view>
         <view class="host"> ({{ item.host }}) </view>
       </view>
@@ -39,6 +39,9 @@ Component.define({
     },
   },
   methods: {
+    tapTitle: function () {
+      this.triggerEvent('taptitle')
+    },
     tapBy: function () {
       this.triggerEvent('tapby')
     },

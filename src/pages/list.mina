@@ -18,7 +18,7 @@
       <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
     </view>
     <view class="news-list">
-      <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtap="tapItem" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
+      <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtaptitle="tapItemTitle" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
       <view wx:if="{{ hasMore }}" class="more" bindtap="tapMore"> {{ isLoadingMore || isReloading ? 'Loading ...' : 'more' }} </view>
     </view>
   </view>
@@ -90,7 +90,7 @@ Page.define(tinax.connect({
       this.reload({ channel })
     },
 
-    tapItem (event) {
+    tapItemTitle (event) {
       let item = event.currentTarget.dataset.item
       if (!item.url) {
         return this.$router.navigate(`/pages/item?id=${item.id}`)

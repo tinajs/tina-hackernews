@@ -99,7 +99,7 @@ Component.define(({
   .title {
     font-size: 24px;
     font-weight: bold;
-    line-height: 1em;
+    line-height: 1.2em;
     margin-bottom: 1em;
   }
   .meta {

@@ -5,6 +5,7 @@ let wechat = Object.assign({}, wx)
 
 const PROMISIFY_APIS = [
   'request',
+  'showToast',
   'showModal',
   'makePhoneCall',
   'scanCode',
@@ -14,6 +15,7 @@ const PROMISIFY_APIS = [
   'login',
   'getUserInfo',
   'requestPayment',
+  'setClipboardData',
 ]
 
 const TIMEOUTIFY_APIS = [

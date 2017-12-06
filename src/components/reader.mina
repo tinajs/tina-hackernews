@@ -12,11 +12,11 @@
     <view wx:else>
       <view class="title">{{ article.title }}</view>
       <view class="meta">
-        original url: <text class="url">{{ article.url }}</text>
+        source from: <text class="url" bindtap="tapUrl">{{ article.domain }}</text>
       </view>
       <rich-text class="reader" nodes="{{ nodes }}" />
       <view class="meta">
-        source from: <text class="url">{{ article.domain }}</text>
+        original url: <text class="url" bindtap="tapUrl">{{ article.url }}</text>
       </view>
     </view>
   </view>
@@ -26,6 +26,7 @@
 import { decode } from 'he'
 import { Component } from '@tinajs/tina'
 import posthtml from 'posthtml'
+import wechat from '../libraries/wechat'
 
 function addTagnameToClass (prefix = '') {
   return (tree) => {
@@ -65,6 +66,24 @@ Component.define(({
     return {
       nodes: postRichText(decode(data.article.content || '')),
     }
+  },
+
+  methods: {
+    tapUrl () {
+      if (!this.data.article || !this.data.article.url) {
+        return
+      }
+      wechat.showModal({
+        title: '访问来源网页',
+        content: '请复制链接后在浏览器中粘贴访问',
+        confirmText: '复制',
+      }).then(({ confirm }) => {
+        if (confirm) {
+          return wechat.setClipboardData({ data: this.data.article.url })
+            .then(() => wechat.showToast({ title: '已复制', icon: 'success' }))
+        }
+      })
+    },
   },
 }))
 </script>

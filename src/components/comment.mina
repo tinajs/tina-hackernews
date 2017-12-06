@@ -64,6 +64,7 @@ Component.define(tinax.connect({
       },
     }
   },
+
   methods: {
     tapToggle: function () {
       this.setData({ open: !this.data.open })

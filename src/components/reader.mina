@@ -51,12 +51,7 @@ function postRichText (content) {
 
 Component.define(({
   properties: {
-    article: {
-      type: Object,
-      observer: function () {
-        this.__tina_component__.setData({})
-      },
-    },
+    article: Object,
   },
   data: {
     nodes: '',

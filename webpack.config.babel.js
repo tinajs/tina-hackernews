@@ -2,6 +2,9 @@ import { resolve } from 'path'
 import webpack from 'webpack'
 import MinaEntryPlugin from '@tinajs/mina-entry-webpack-plugin'
 import MinaRuntimePlugin from '@tinajs/mina-runtime-webpack-plugin'
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
+
+const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
   context: resolve('src'),
@@ -55,6 +58,10 @@ export default {
     symlinks: true,
   },
   plugins: [
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
+      DEBUG: false,
+    }),
     new MinaEntryPlugin({
       map: (entry) => ['es6-promise/dist/es6-promise.auto.js', './libraries/bom-polyfill', entry],
     }),
@@ -65,5 +72,6 @@ export default {
       name: 'common.js',
       minChunks: 2,
     }),
-  ],
+    isProduction && new UglifyJsPlugin(),
+  ].filter(Boolean),
 }

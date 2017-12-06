@@ -72,8 +72,11 @@ Component.define(({
 <style lang="less">
 .reader-component {
   background-color: #fff;
-  padding: 32px;
   color: #333;
+  width: 100%;
+  padding: 32px;
+  box-sizing: border-box;
+  overflow: hidden;
   .loading {
     font-size: 12px;
     color: #666;
@@ -91,6 +94,9 @@ Component.define(({
     margin: 2em 0 3em;
     .url {
       text-decoration: underline;
+      overflow: hidden;
+      word-break: break-all;
+      word-wrap: break-word;
     }
   }
   .reader {

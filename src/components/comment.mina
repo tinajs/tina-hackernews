@@ -38,13 +38,16 @@ import { Component } from '@tinajs/tina'
 import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
-Component.define(tinax.connect({
-  getters: function mappingGetters (getters) {
-    return {
-      comment: getters.getItem()(this.data.commentId),
-    }
-  },
-})({
+Component.define(({
+  mixins: [
+    tinax.connect({
+      getters: function mappingGetters (getters) {
+        return {
+          comment: getters.getItem()(this.data.commentId),
+        }
+      },
+    }),
+  ],
   properties: {
     commentId: Number,
   },

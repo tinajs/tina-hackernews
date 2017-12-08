@@ -32,25 +32,28 @@ import { host, timeAgo } from '../utils/filters'
 
 const DEFAULT_CHANNEL = 'top'
 
-Page.define(tinax.connect({
-  state: function mappingState (state) {
-    return {
-      channel: state.lists.activeChannel,
-    }
-  },
-  getters: function mappingGetters (getters) {
-    return {
-      items: getters.activeItems(),
-      hasMore: getters.hasMoreItemsOfActiveChannel(),
-    }
-  },
-  actions: function mappingActions (actions) {
-    return {
-      fetchListData: actions.fetchListData,
-      fetchNextPage: actions.fetchNextPage,
-    }
-  },
-})({
+Page.define(({
+  mixins: [
+    tinax.connect({
+      state: function mappingState (state) {
+        return {
+          channel: state.lists.activeChannel,
+        }
+      },
+      getters: function mappingGetters (getters) {
+        return {
+          items: getters.activeItems(),
+          hasMore: getters.hasMoreItemsOfActiveChannel(),
+        }
+      },
+      actions: function mappingActions (actions) {
+        return {
+          fetchListData: actions.fetchListData,
+          fetchNextPage: actions.fetchNextPage,
+        }
+      },
+    })
+  ],
   data: {
     isReloading: false,
     isLoadingMore: false,

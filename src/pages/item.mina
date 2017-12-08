@@ -38,18 +38,21 @@ import wechat from '../libraries/wechat'
 import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
-Page.define(tinax.connect({
-  state: function mappingState (state) {
-    return {
-      item: state.items.find((item) => item.id + '' === this.$route.query.id) || {},
-    }
-  },
-  actions: function mappingActions (actions) {
-    return {
-      fetchItems: actions.fetchItems,
-    }
-  },
-})({
+Page.define(({
+  mixins: [
+    tinax.connect({
+      state: function mappingState (state) {
+        return {
+          item: state.items.find((item) => item.id + '' === this.$route.query.id) || {},
+        }
+      },
+      actions: function mappingActions (actions) {
+        return {
+          fetchItems: actions.fetchItems,
+        }
+      },
+    }),
+  ],
   data: {
     isLoading: false,
   },

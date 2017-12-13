@@ -19,5 +19,4 @@ npm i
 - ``npm build`` - build for production
 
 ## License
-MIT &copy; [yelo](https://github.com/imyelo)
-
+Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present

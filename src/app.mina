@@ -17,7 +17,6 @@
 <script>
 import { Page, Component } from '@tinajs/tina'
 import router from '@tinajs/tina-router'
-import Tinax from '@tinajs/tinax'
 
 Page.mixin(router())
 Component.mixin(router())

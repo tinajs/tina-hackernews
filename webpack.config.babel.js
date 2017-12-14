@@ -64,9 +64,7 @@ export default {
       NODE_ENV: 'development',
       DEBUG: false,
     }),
-    new MinaEntryPlugin({
-      map: (entry) => ['./libraries/bom-polyfill', entry],
-    }),
+    new MinaEntryPlugin(),
     new MinaRuntimePlugin({
       runtime: './common.js',
     }),

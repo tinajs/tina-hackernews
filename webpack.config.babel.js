@@ -20,6 +20,8 @@ export default {
         test: /\.js$/,
         include: [
           resolve('src'),
+          resolve('node_modules/p-timeout'),
+          resolve('node_modules/p-queue'),
         ],
         use: 'babel-loader',
       },

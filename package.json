@@ -19,7 +19,6 @@
     "@tinajs/tinax": "^0.0.1",
     "compose-function": "^3.0.3",
     "date-fns": "^1.29.0",
-    "es6-promise": "^4.1.1",
     "he": "^1.1.1",
     "keymirror": "^0.1.1",
     "p-queue": "^2.3.0",

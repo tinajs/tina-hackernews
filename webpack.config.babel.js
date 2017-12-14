@@ -63,7 +63,7 @@ export default {
       DEBUG: false,
     }),
     new MinaEntryPlugin({
-      map: (entry) => ['es6-promise/dist/es6-promise.auto.js', './libraries/bom-polyfill', entry],
+      map: (entry) => ['./libraries/bom-polyfill', entry],
     }),
     new MinaRuntimePlugin({
       runtime: './common.js',

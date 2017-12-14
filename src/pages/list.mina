@@ -75,9 +75,9 @@ Page.define(({
     this.reload({ channel: DEFAULT_CHANNEL })
   },
 
-  onPullDownRefresh () {
-    this.reload({ channel: this.data.channel })
-      .then(() => wx.stopPullDownRefresh())
+  async onPullDownRefresh () {
+    await this.reload({ channel: this.data.channel })
+    wx.stopPullDownRefresh()
   },
 
   onReachBottom () {

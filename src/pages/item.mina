@@ -69,8 +69,9 @@ Page.define(({
     }
   },
 
-  onLoad () {
-    this.fetch().then(() => this.fetchComments())
+  async onLoad () {
+    await this.fetch()
+    await this.fetchComments()
   },
   onShareAppMessage () {
     let item = this.data.item || {}

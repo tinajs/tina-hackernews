@@ -11,7 +11,7 @@
     "prebuild": "run-s clean",
     "start": "webpack -w",
     "build": "cross-env NODE_ENV=production webpack",
-    "bootstrap": "cd ./node_modules/@tinajs && ln -s ../../../tina tina && ln -s ../../../tinax tinax && ln -s ../../../tina-router tina-router"
+    "bootstrap": "cd ./node_modules/@tinajs && ln -s ../../../tina && ln -s ../../../tinax && ln -s ../../../tina-router"
   },
   "dependencies": {
     "@tinajs/tina": "^0.0.1",
@@ -25,7 +25,8 @@
     "p-timeout": "^2.0.1",
     "posthtml": "^0.10.1",
     "underscore": "^1.8.3",
-    "uniq": "^1.0.1"
+    "uniq": "^1.0.1",
+    "wxio": "^0.0.1"
   },
   "devDependencies": {
     "@tinajs/mina-entry-webpack-plugin": "^0.2.2",

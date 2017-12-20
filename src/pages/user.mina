@@ -17,7 +17,6 @@
 <script>
 import { decode } from 'he'
 import { Page } from '@tinajs/tina'
-import wechat from '../libraries/wechat'
 import { tinax } from '../store'
 import { timeAgo } from '../utils/filters'
 
@@ -50,7 +49,7 @@ Page.define(({
 
   onLoad () {
     this.fetchUser({ id: this.$route.query.id })
-      .finally(wechat.loading())
+      .finally(this.$loading())
   },
   onShareAppMessage () {
     let user = this.data.user || {}

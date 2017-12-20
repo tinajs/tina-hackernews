@@ -34,7 +34,6 @@
 <script>
 import { decode } from 'he'
 import { Page } from '@tinajs/tina'
-import wechat from '../libraries/wechat'
 import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
@@ -99,7 +98,7 @@ Page.define(({
     fetch () {
       this.setData({ isLoading: true })
       return this.fetchItems({ ids: [this.$route.query.id] })
-        .finally(wechat.loading())
+        .finally(this.$loading())
         .then(() => this.setData({ isLoading: false }))
     },
 
@@ -109,7 +108,7 @@ Page.define(({
       }
       this.setData({ isLoading: true })
       fetchComments(tinax, this.data.item)
-        .finally(wechat.loading())
+        .finally(this.$loading())
         .then(() => this.setData({ isLoading: false }))
     },
   }

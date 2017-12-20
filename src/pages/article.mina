@@ -16,7 +16,6 @@
 <script>
 import { decode } from 'he'
 import { Page } from '@tinajs/tina'
-import wechat from '../libraries/wechat'
 
 import { fetchArticle } from '../api'
 
@@ -28,7 +27,7 @@ Page.define(({
   onLoad () {
     fetchArticle(this.$route.query.id)
       .then((article) => this.setData({ article }))
-      .finally(wechat.loading())
+      .finally(this.$loading())
   },
   onShareAppMessage () {
     let article = this.data.article || {}

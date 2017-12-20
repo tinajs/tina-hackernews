@@ -26,7 +26,6 @@
 
 <script>
 import { Page } from '@tinajs/tina'
-import wechat from '../libraries/wechat'
 import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
@@ -117,7 +116,7 @@ Page.define(({
       }
       this.setData({ isReloading: true })
       return this.fetchListData({ channel })
-        .finally(wechat.loading())
+        .finally(this.$loading())
         .then(() => this.setData({ isReloading: false }))
     },
 
@@ -127,7 +126,7 @@ Page.define(({
       }
       this.setData({ isLoadingMore: true })
       this.fetchNextPage()
-        .finally(wechat.loading())
+        .finally(this.$loading())
         .then(() => this.setData({ isLoadingMore: false }))
     }
   },

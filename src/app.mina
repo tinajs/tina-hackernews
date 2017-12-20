@@ -17,9 +17,12 @@
 <script>
 import { Page, Component } from '@tinajs/tina'
 import router from '@tinajs/tina-router'
+import loading from '@tinajs/tina-loading'
 
 Page.mixin(router())
+Page.mixin(loading())
 Component.mixin(router())
+Component.mixin(loading())
 
 App({
   onLaunch() {

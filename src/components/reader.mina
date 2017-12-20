@@ -26,7 +26,7 @@
 import { decode } from 'he'
 import { Component } from '@tinajs/tina'
 import posthtml from 'posthtml'
-import wechat from '../libraries/wechat'
+import wxio from 'wxio'
 
 function addTagnameToClass (prefix = '') {
   return (tree) => {
@@ -68,16 +68,13 @@ Component.define(({
       if (!this.data.article || !this.data.article.url) {
         return
       }
-      wechat.showModal({
+      this.$confirm({
         title: '访问来源网页',
         content: '请复制链接后在浏览器中粘贴访问',
         confirmText: '复制',
-      }).then(({ confirm }) => {
-        if (confirm) {
-          return wechat.setClipboardData({ data: this.data.article.url })
-            .then(() => wechat.showToast({ title: '已复制', icon: 'success' }))
-        }
       })
+        .then(() => wxio.setClipboardData({ data: this.data.article.url }))
+        .then(() => wxio.showToast({ title: '已复制', icon: 'success' }))
     },
   },
 }))

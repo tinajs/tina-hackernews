@@ -1,4 +1,4 @@
-import wechat from '../libraries/wechat'
+import wxio from 'wxio'
 
 const isDevtools = wx.getSystemInfoSync().platform === 'devtools'
 
@@ -6,7 +6,7 @@ const HACKERNEWS_API_BASE_URL = isDevtools ? `https://cors.now.sh/https://hacker
 const ARTICLE_API_BASE_URL = 'https://tina-hackernews.lab4310.com/readability/'
 
 function got (url) {
-  return wechat.request({ url })
+  return wxio.request({ url })
     .then(function (response) {
       return response.data || {}
     })

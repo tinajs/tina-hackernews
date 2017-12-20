@@ -11,13 +11,14 @@
     "prebuild": "run-s clean",
     "start": "webpack -w",
     "build": "cross-env NODE_ENV=production webpack",
-    "bootstrap": "cd ./node_modules/@tinajs && ln -s ../../../tina && ln -s ../../../tinax && ln -s ../../../tina-router && ln -s ../../../tina-loading"
+    "bootstrap": "cd ./node_modules/@tinajs && ln -s ../../../tina && ln -s ../../../tinax && ln -s ../../../tina-router && ln -s ../../../tina-loading && ln -s ../../../tina-modal"
   },
   "dependencies": {
     "@tinajs/tina": "^0.0.1",
+    "@tinajs/tina-loading": "^0.0.1",
+    "@tinajs/tina-modal": "^0.0.1",
     "@tinajs/tina-router": "^0.0.1",
     "@tinajs/tinax": "^0.0.1",
-    "@tinajs/tina-loading": "^0.0.1",
     "compose-function": "^3.0.3",
     "date-fns": "^1.29.0",
     "he": "^1.1.1",
@@ -27,7 +28,7 @@
     "posthtml": "^0.10.1",
     "underscore": "^1.8.3",
     "uniq": "^1.0.1",
-    "wxio": "^0.0.1"
+    "wxio": "0.0.1"
   },
   "devDependencies": {
     "@tinajs/mina-entry-webpack-plugin": "^0.2.2",

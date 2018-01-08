@@ -16,6 +16,7 @@
       <view class="link {{ channel === 'show' ? 'active' : '' }}" data-channel="show" bindtap="tapType">Show</view>
       <view class="link {{ channel === 'ask' ? 'active' : '' }}" data-channel="ask" bindtap="tapType">Ask</view>
       <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
+      <view class="link github"><button plain="true" open-type="contact" session-from="{{ GITHUB_LINK }}"><image src="../assets/github-r.png" /></button></view>
     </view>
     <view class="news-list">
       <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtaptitle="tapItemTitle" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
@@ -30,6 +31,14 @@ import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
 const DEFAULT_CHANNEL = 'top'
+const GITHUB_LINK = {
+  type: 'link',
+  link: {
+    title: 'HackerNews 热点 @ GitHub',
+    url: 'https://github.com/tinajs/tina-hackernews',
+    thumbnail: 'https://github.com/tinajs/assets/raw/master/images/showcases/hackernews.png',
+  },
+}
 
 Page.define(({
   mixins: [
@@ -56,6 +65,7 @@ Page.define(({
   data: {
     isReloading: false,
     isLoadingMore: false,
+    GITHUB_LINK: JSON.stringify(GITHUB_LINK),
   },
 
   compute (state) {
@@ -154,6 +164,23 @@ Page.define(({
       color:  #fff;
       font-weight: bold;
       box-shadow: 0 -2px 0 0 #fff inset;
+    }
+    &.github {
+      padding: 0;
+      button {
+        margin: 0;
+        padding: 0 1em;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        image {
+          display: block;
+          width: 12px;
+          height: 12px;
+        }
+      }
     }
   }
 }

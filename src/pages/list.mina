@@ -93,6 +93,12 @@ Page.define(({
     this.more()
   },
 
+  onShareAppMessage () {
+    return {
+      title: 'HackerNews 热点',
+    }
+  },
+
   methods: {
     tapType (event) {
       let channel = event.currentTarget.dataset.channel

@@ -75,7 +75,7 @@ Page.define(({
   onShareAppMessage () {
     let item = this.data.item || {}
     return {
-      title: item.title ? `Hacker News - 「${item.title}」` : 'Hacker News',
+      title: item.title ? `${item.title}` : 'HackerNews 热点',
     }
   },
 

@@ -32,7 +32,7 @@ Page.define(({
   onShareAppMessage () {
     let article = this.data.article || {}
     return {
-      title: article.title ? `Hacker News - 「${article.title}」` : 'Hacker News',
+      title: article.title ? `${article.title}` : 'HackerNews 热点',
     }
   },
 

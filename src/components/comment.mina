@@ -41,7 +41,7 @@ import { host, timeAgo } from '../utils/filters'
 Component.define(({
   mixins: [
     tinax.connect({
-      getters: function mappingGetters (getters) {
+      getters (getters) {
         return {
           comment: getters.getItem()(this.data.commentId),
         }

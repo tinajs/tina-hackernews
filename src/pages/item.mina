@@ -40,12 +40,12 @@ import { host, timeAgo } from '../utils/filters'
 Page.define(({
   mixins: [
     tinax.connect({
-      state: function mappingState (state) {
+      state (state) {
         return {
           item: state.items.find((item) => item.id + '' === this.$route.query.id) || {},
         }
       },
-      actions: function mappingActions (actions) {
+      actions (actions) {
         return {
           fetchItems: actions.fetchItems,
         }

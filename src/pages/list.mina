@@ -43,19 +43,19 @@ const GITHUB_LINK = {
 Page.define(({
   mixins: [
     tinax.connect({
-      state: function mappingState (state) {
+      state (state) {
         return {
           channel: state.lists.activeChannel,
           config: state.config,
         }
       },
-      getters: function mappingGetters (getters) {
+      getters (getters) {
         return {
           items: getters.activeItems(),
           hasMore: getters.hasMoreItemsOfActiveChannel(),
         }
       },
-      actions: function mappingActions (actions) {
+      actions (actions) {
         return {
           fetchListData: actions.fetchListData,
           fetchNextPage: actions.fetchNextPage,

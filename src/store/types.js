@@ -1,6 +1,7 @@
 import km from 'keymirror'
 
 export default km({
+  SET_CONFIG: null,
   SET_ACTIVE_CHANNEL: null,
   SET_ACTIVE_PAGE: null,
   SET_LIST: null,

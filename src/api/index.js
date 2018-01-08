@@ -4,6 +4,7 @@ const isDevtools = wx.getSystemInfoSync().platform === 'devtools'
 
 const HACKERNEWS_API_BASE_URL = isDevtools ? `https://cors.now.sh/https://hacker-news.firebaseio.com/v0/` : 'https://tina-hackernews.lab4310.com/hn/v0/'
 const ARTICLE_API_BASE_URL = 'https://tina-hackernews.lab4310.com/readability/'
+const CONFIG_API_URL = 'https://tina-hackernews.lab4310.com/config'
 
 function got (url) {
   return wxio.request({ url })
@@ -43,4 +44,8 @@ export function fetchUser (id) {
 
 export function fetchArticle (id) {
   return got(`${ARTICLE_API_BASE_URL}${id}`)
+}
+
+export function fetchConfig () {
+  return got(CONFIG_API_URL)
 }

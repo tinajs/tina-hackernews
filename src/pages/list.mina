@@ -16,7 +16,7 @@
       <view class="link {{ channel === 'show' ? 'active' : '' }}" data-channel="show" bindtap="tapType">Show</view>
       <view class="link {{ channel === 'ask' ? 'active' : '' }}" data-channel="ask" bindtap="tapType">Ask</view>
       <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
-      <view class="link github"><button plain="true" open-type="contact" session-from="{{ GITHUB_LINK }}"><image src="../assets/github-r.png" /></button></view>
+      <view wx-if="{{ config.github }}" class="link github"><button plain="true" open-type="contact" session-from="{{ GITHUB_LINK }}"><image src="../assets/github-r.png" /></button></view>
     </view>
     <view class="news-list">
       <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtaptitle="tapItemTitle" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
@@ -46,6 +46,7 @@ Page.define(({
       state: function mappingState (state) {
         return {
           channel: state.lists.activeChannel,
+          config: state.config,
         }
       },
       getters: function mappingGetters (getters) {
@@ -58,6 +59,7 @@ Page.define(({
         return {
           fetchListData: actions.fetchListData,
           fetchNextPage: actions.fetchNextPage,
+          fetchConfig: actions.fetchConfig,
         }
       },
     })
@@ -82,6 +84,7 @@ Page.define(({
 
   onLoad () {
     this.reload({ channel: DEFAULT_CHANNEL })
+    this.fetchConfig()
   },
 
   async onPullDownRefresh () {

@@ -1,7 +1,7 @@
 <config>
 {
   "usingComponents": {
-    "hn-comment": "components/comment"
+    "hn-comment": "components/comment.mina"
   }
 }
 </config>

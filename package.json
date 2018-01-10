@@ -31,9 +31,9 @@
     "wxio": "0.0.1"
   },
   "devDependencies": {
-    "@tinajs/mina-entry-webpack-plugin": "^0.2.2",
-    "@tinajs/mina-loader": "^0.2.1",
-    "@tinajs/mina-runtime-webpack-plugin": "^0.1.1",
+    "@tinajs/mina-entry-webpack-plugin": "^0.5.0",
+    "@tinajs/mina-loader": "^0.4.0",
+    "@tinajs/mina-runtime-webpack-plugin": "^0.1.2",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

@@ -1,7 +1,7 @@
 <config>
 {
   "usingComponents": {
-    "hn-reader": "components/reader"
+    "hn-reader": "components/reader.mina"
   }
 }
 </config>

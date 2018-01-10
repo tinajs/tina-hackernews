@@ -3,7 +3,7 @@
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 192,
   "usingComponents": {
-    "hn-item": "components/item"
+    "hn-item": "components/item.mina"
   }
 }
 </config>

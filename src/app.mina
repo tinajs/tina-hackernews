@@ -6,10 +6,10 @@
     "backgroundColor": "#34495e"
   },
   "pages": [
-    "pages/list",
-    "pages/user",
-    "pages/item",
-    "pages/article"
+    "pages/list.mina",
+    "pages/user.mina",
+    "pages/item.mina",
+    "pages/article.mina"
   ]
 }
 </config>

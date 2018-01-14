@@ -1,7 +1,7 @@
 {
   "name": "@tinajs/tina-hackernews",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "author": "yelo",
   "license": "MIT",
@@ -10,15 +10,14 @@
     "prestart": "run-s clean",
     "prebuild": "run-s clean",
     "start": "webpack -w",
-    "build": "cross-env NODE_ENV=production webpack",
-    "bootstrap": "cd ./node_modules/@tinajs && ln -s ../../../tina && ln -s ../../../tinax && ln -s ../../../tina-router && ln -s ../../../tina-loading && ln -s ../../../tina-modal"
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
-    "@tinajs/tina": "^0.0.1",
-    "@tinajs/tina-loading": "^0.0.1",
-    "@tinajs/tina-modal": "^0.0.1",
-    "@tinajs/tina-router": "^0.0.1",
-    "@tinajs/tinax": "^0.0.1",
+    "@tinajs/tina": "^1.0.0",
+    "@tinajs/tina-loading": "^0.1.0",
+    "@tinajs/tina-modal": "^0.1.0",
+    "@tinajs/tina-router": "^0.1.0",
+    "@tinajs/tinax": "^0.1.0",
     "compose-function": "^3.0.3",
     "date-fns": "^1.29.0",
     "he": "^1.1.1",

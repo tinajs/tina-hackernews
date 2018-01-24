@@ -129,6 +129,10 @@ Page.define(({
       this.$router.navigate(`/pages/item?id=${item.id}`)
     },
 
+    tapMore (event) {
+      this.more()
+    },
+
     reload ({ channel }) {
       if (this.data.isReloading) {
         return

@@ -15,17 +15,12 @@
 </config>
 
 <script>
-import { Page, Component } from '@tinajs/tina'
+import Tina from '@tinajs/tina'
 import router from '@tinajs/tina-router'
 import loading from '@tinajs/tina-loading'
 import modal from '@tinajs/tina-modal'
 
-Page.mixin(router())
-Page.mixin(loading())
-Page.mixin(modal())
-Component.mixin(router())
-Component.mixin(loading())
-Component.mixin(modal())
+Tina.use(router).use(loading).use(modal)
 
 App({
   onLaunch() {

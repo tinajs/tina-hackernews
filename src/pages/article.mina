@@ -50,9 +50,10 @@ Page.define(({
 
 <style lang="less">
 .article-view {
+  background-color: #fff;
   .reader {
     display: block;
-    margin-bottom: 96px;
+    padding-bottom: 96px;
   }
   .comments {
     position: fixed;

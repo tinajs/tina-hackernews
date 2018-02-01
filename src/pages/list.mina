@@ -10,7 +10,7 @@
 </config>
 
 <template>
-  <view class="view">
+  <view class="view {{ isReloading ? 'is-reloading' : ''}}">
     <view class="header">
       <view class="link {{ channel === 'top' ? 'active' : '' }}" data-channel="top" bindtap="tapType">Top</view>
       <view class="link {{ channel === 'new' ? 'active' : '' }}" data-channel="new" bindtap="tapType">New</view>
@@ -215,6 +215,15 @@ Page.define(({
     text-align: center;
     color: #999;
     background-color: #fafafa;
+  }
+}
+
+.view.is-reloading {
+  .header {
+    color: rgba(255,255,255,0.25);
+    .link.active {
+      color: rgba(255,255,255,0.5);
+    }
   }
 }
 </style>

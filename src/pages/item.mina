@@ -136,8 +136,9 @@ function fetchComments (store, item) {
   color: #fff;
   .title {
     display: inline;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
+    line-height: 1.2em;
     margin: 0;
     margin-right: .5em;
   }

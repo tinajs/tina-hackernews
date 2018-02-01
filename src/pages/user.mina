@@ -1,7 +1,10 @@
 <template>
   <view class="user-view">
     <view wx:if="{{ user }}">
-      <view class="title">User : {{ id }}</view>
+      <view class="title">
+        <view class="label">USER</view>
+        <view>{{ id }}</view>
+      </view>
       <view class="meta">
         <view class="item"><text class="label">Created:</text> {{ user.createdTimeAgo }} ago</view>
         <view class="item"><text class="label">Karma:</text> {{ user.karma }}</view>
@@ -64,18 +67,22 @@ Page.define(({
 .user-view {
   background-color: #fff;
   box-sizing: border-box;
-  padding: 36px 32px;
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
   font-size: 12px;
   .title {
-    margin: 0 0 2em;
-    font-size: 18px;
+    font-size: 36px;
+    line-height: 1em;
     font-weight: bold;
+    background-color: #ff6600;
+    color: #fff;
+    padding: 36px;
+    .label {
+      font-size: 12px;
+    }
   }
   .meta {
     list-style-type: none;
-    margin: 15px 0;
-    padding: 0;
+    padding: 36px;
     line-height: 1.5em;
     font-size: 14px;
   }

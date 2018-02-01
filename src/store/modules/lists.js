@@ -1,4 +1,3 @@
-import _ from 'underscore'
 import types from '../types'
 import {
   fetchIdsByChannel,

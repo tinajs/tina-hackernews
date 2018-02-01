@@ -1,13 +1,16 @@
 <config>
 {
-  "component": true
+  "component": true,
+  "usingComponents": {
+    "spinner": "components/spinner.mina"
+  }
 }
 </config>
 
 <template>
   <view class="reader-component">
     <view wx:if="{{ !article || (!article.title && !article.content) }}" class="loading">
-      Loading...
+      <spinner />
     </view>
     <view wx:else>
       <view class="title">{{ article.title }}</view>

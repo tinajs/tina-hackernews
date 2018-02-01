@@ -3,7 +3,8 @@
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 192,
   "usingComponents": {
-    "hn-item": "components/item.mina"
+    "hn-item": "components/item.mina",
+    "spinner": "components/spinner.mina"
   }
 }
 </config>
@@ -25,7 +26,10 @@
     </view>
     <view class="news-list">
       <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtaptitle="tapItemTitle" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
-      <view wx:if="{{ hasMore }}" class="more" bindtap="tapMore"> {{ isLoadingMore || isReloading ? 'Loading ...' : 'more' }} </view>
+      <view wx:if="{{ hasMore }}" class="more" >
+        <spinner wx:if="{{ isLoadingMore || isReloading }}" />
+        <view wx:else bindtap="tapMore">LOAD MORE</view>
+      </view>
     </view>
   </view>
 </template>

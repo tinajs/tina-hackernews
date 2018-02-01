@@ -1,13 +1,16 @@
 <config>
 {
-  "component": true
+  "component": true,
+  "usingComponents": {
+    "spinner": "components/spinner.mina"
+  }
 }
 </config>
 
 <template>
   <view>
     <view wx:if="{{ !item || item.loading }}" class="news-item loading" data-id="{{ item.id }}">
-      Loading...
+      <spinner />
     </view>
     <view wx:else class="news-item" data-id="{{ item.id }}">
       <view class="score">{{ item.score }}</view>

@@ -1,0 +1,43 @@
+<config>
+{
+  "component": true
+}
+</config>
+
+<template>
+  <span class="loading"></span>
+</template>
+
+<script>
+import { Component } from '@tinajs/tina'
+
+Component.define({
+  properties: {
+  },
+})
+</script>
+
+<style lang="less">
+/**
+ * forked from https://github.com/maxbeier/text-spinners
+ */
+.loading {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.3em;
+  margin-top: -0.3em;
+  line-height: 1.5em;
+  vertical-align: text-bottom;
+}
+.loading::after {
+  display: inline-table;
+  white-space: pre;
+  text-align: left;
+}
+.loading::after {
+  content: "⠋\A⠙\A⠚\A⠞\A⠖\A⠦\A⠴\A⠲\A⠳";
+  animation: spin9 800ms steps(9) infinite;
+}
+@keyframes spin9  { to { transform: translateY(-13.5em); } }
+
+</style>

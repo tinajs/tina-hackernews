@@ -1,7 +1,8 @@
 <config>
 {
   "usingComponents": {
-    "hn-comment": "components/comment.mina"
+    "hn-comment": "components/comment.mina",
+    "spinner": "components/spinner.mina"
   },
   "component": true
 }
@@ -10,7 +11,7 @@
 <template>
   <view>
     <view wx:if="{{ !comment || comment.loading  }}" class="comment loading">
-      Loading...
+      <spinner />
     </view>
     <view wx:else class="comment">
       <view class="meta">

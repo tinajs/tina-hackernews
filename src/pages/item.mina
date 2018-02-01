@@ -1,7 +1,8 @@
 <config>
 {
   "usingComponents": {
-    "hn-comment": "components/comment.mina"
+    "hn-comment": "components/comment.mina",
+    "spinner": "components/spinner.mina"
   }
 }
 </config>
@@ -22,7 +23,7 @@
     <view class="item-view-comments">
       <view class="item-view-comments-header">
         {{ item.kids ? item.descendants + ' comments' : 'No comments yet.' }}
-        <text class="loading" hidden="{{ !isLoading }}"> | Loading ... </text>
+        <view class="loading" wx:if="{{ isLoading }}"><spinner /></view>
       </view>
       <view wx:if="!isLoading" class="comment-children">
         <hn-comment wx:for="{{ item.kids }}" wx:key="*this" comment-id="{{ item }}" />
@@ -163,12 +164,10 @@ function fetchComments (store, item) {
   font-size: 14px;
   padding: 1.5em 0;
   position: relative;
-  .spinner {
-    display: inline-block;
-    margin: -15px 0;
-  }
   .loading {
+    display: block;
     color: #999;
+    float: right
   }
 }
 .comment-children {

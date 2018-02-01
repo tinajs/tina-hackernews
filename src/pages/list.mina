@@ -26,8 +26,8 @@
     </view>
     <view class="news-list">
       <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtaptitle="tapItemTitle" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
-      <view wx:if="{{ hasMore }}" class="more" >
-        <spinner wx:if="{{ isLoadingMore || isReloading }}" />
+      <view wx:if="{{ hasMore }}" class="more">
+        <view wx:if="{{ isLoadingMore || isReloading }}"><spinner /></view>
         <view wx:else bindtap="tapMore">LOAD MORE</view>
       </view>
     </view>

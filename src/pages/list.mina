@@ -16,7 +16,12 @@
       <view class="link {{ channel === 'show' ? 'active' : '' }}" data-channel="show" bindtap="tapType">Show</view>
       <view class="link {{ channel === 'ask' ? 'active' : '' }}" data-channel="ask" bindtap="tapType">Ask</view>
       <view class="link {{ channel === 'job' ? 'active' : '' }}" data-channel="job" bindtap="tapType">Jobs</view>
-      <view wx-if="{{ config.github }}" class="link github"><button plain="true" open-type="contact" session-from="{{ GITHUB_LINK }}"><image src="../assets/github-r.png" /></button></view>
+      <view wx:if="{{ ads.menu.visible }}" class="link ad">
+        <button plain="true" open-type="contact" session-from="{{ ads.menu.message }}">
+          <image wx:if="{{ ads.menu.thumbnail }}" src="{{ ads.menu.thumbnail }}" />
+          <image wx:else src="../assets/github-r.png" />
+        </button>
+      </view>
     </view>
     <view class="news-list">
       <hn-item wx:for="{{ items }}" wx:for-item="item" wx:key="id" class="item" item="{{ item }}" data-item="{{ item }}" bindtaptitle="tapItemTitle" bindtapby="tapItemBy" bindtapcomments="tapItemComments" />
@@ -30,29 +35,19 @@ import { Page } from '@tinajs/tina'
 import { tinax } from '../store'
 import { host, timeAgo } from '../utils/filters'
 
-const DEFAULT_CHANNEL = 'top'
-const GITHUB_LINK = {
-  type: 'link',
-  link: {
-    title: 'HackerNews 热点 @ GitHub',
-    url: 'https://github.com/tinajs/tina-hackernews',
-    thumbnail: 'https://github.com/tinajs/assets/raw/master/images/showcases/hackernews.png',
-  },
-}
-
 Page.define(({
   mixins: [
     tinax.connect({
       state (state) {
         return {
           channel: state.lists.activeChannel,
-          config: state.config,
         }
       },
       getters (getters) {
         return {
           items: getters.activeItems(),
           hasMore: getters.hasMoreItemsOfActiveChannel(),
+          ads: getters.ads(),
         }
       },
       actions (actions) {
@@ -67,7 +62,6 @@ Page.define(({
   data: {
     isReloading: false,
     isLoadingMore: false,
-    GITHUB_LINK: JSON.stringify(GITHUB_LINK),
   },
 
   compute (state) {
@@ -181,7 +175,7 @@ Page.define(({
       font-weight: bold;
       box-shadow: 0 -2px 0 0 #fff inset;
     }
-    &.github {
+    &.ad {
       padding: 0;
       button {
         margin: 0;

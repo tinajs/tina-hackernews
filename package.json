@@ -21,6 +21,7 @@
     "compose-function": "^3.0.3",
     "date-fns": "^1.29.0",
     "he": "^1.1.1",
+    "just-map-object": "^1.1.24",
     "keymirror": "^0.1.1",
     "p-queue": "^2.3.0",
     "p-timeout": "^2.0.1",

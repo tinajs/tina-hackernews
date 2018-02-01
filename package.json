@@ -13,7 +13,7 @@
     "build": "cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
-    "@tinajs/tina": "^1.2.0",
+    "@tinajs/tina": "^1.4.0",
     "@tinajs/tina-loading": "^0.2.0",
     "@tinajs/tina-modal": "^0.2.0",
     "@tinajs/tina-router": "^0.2.0",

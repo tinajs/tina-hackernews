@@ -83,7 +83,7 @@ Page.define(({
   },
 
   onLoad () {
-    this.reload({ channel: DEFAULT_CHANNEL })
+    wx.startPullDownRefresh()
     this.fetchConfig()
   },
 
@@ -157,6 +157,9 @@ Page.define(({
 </script>
 
 <style lang="less">
+.view {
+  background-color: #ff6600;
+}
 .header {
   position: fixed;
   z-index: 1;
@@ -213,6 +216,7 @@ Page.define(({
     line-height: 96px;
     text-align: center;
     color: #999;
+    background-color: #fafafa;
   }
 }
 </style>

@@ -1,5 +1,7 @@
 <config>
 {
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
   "usingComponents": {
     "hn-reader": "components/reader.mina"
   }
@@ -9,7 +11,9 @@
 <template>
   <view class="article-view">
     <hn-reader class="reader" article="{{ article }}" />
-    <view class="comments" bindtap="tapComments">Comments on Hacker News</view>
+    <view class="comments">
+      <view class="button" bindtap="tapComments">Comments on Hacker News</view>
+    </view>
   </view>
 </template>
 
@@ -48,21 +52,25 @@ Page.define(({
 .article-view {
   .reader {
     display: block;
-    margin-bottom: 48px;
+    margin-bottom: 96px;
   }
   .comments {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 48px;
+    height: 96px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background:color(#ff6600 a(90%));
-    color:#fff;
-    font-size:12px;
-    text-decoration: underline;
+    font-size: 12px;
+    .button {
+      padding: 1em 2em;
+      border-radius: 8px;
+      background: #ff6600;
+      color: #fff;
+      box-shadow: 0 2px 32px 0px rgba(0,0,0,0.35)
+    }
   }
 }
 </style>

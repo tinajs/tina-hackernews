@@ -2,8 +2,10 @@
 {
   "window": {
     "navigationBarBackgroundColor": "#ff6600",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": " Hacker News ",
-    "backgroundColor": "#34495e"
+    "backgroundColor": "#ff6600",
+    "backgroundTextStyle": "light"
   },
   "pages": [
     "pages/list.mina",

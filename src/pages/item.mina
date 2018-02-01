@@ -128,18 +128,20 @@ function fetchComments (store, item) {
 
 <style lang="less">
 .item-view-header {
-  background-color: #fff;
+  background-color: #ff6600;
   padding: 36px 32px 42px;
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
   font-size: 12px;
+  color: #fff;
   .title {
     display: inline;
     font-size: 18px;
+    font-weight: bold;
     margin: 0;
     margin-right: .5em;
   }
-  .host, .meta, .meta .link {
-    color: #828282;
+  .host {
+    color: hsl(24,100%,80%);
   }
   .meta .link {
     text-decoration: underline;

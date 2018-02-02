@@ -33,3 +33,5 @@ npm i
 
 ## License
 Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present
+
+[![](https://github.com/tinajs/assets/raw/master/images/banners/sponsored.png)](https://github.com/tinajs/tina)

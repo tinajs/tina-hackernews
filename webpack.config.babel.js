@@ -6,6 +6,18 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
+const loaders = {
+  script: 'babel-loader',
+  style: {
+    loader: 'postcss-loader',
+    options: {
+      config: {
+        path: resolve('./postcss.config.js'),
+      },
+    },
+  },
+}
+
 export default {
   context: resolve('src'),
   entry: './app.mina',
@@ -17,38 +29,40 @@ export default {
   module: {
     rules: [
       {
+        test: /\.mina$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: '@tinajs/mina-loader',
+            options: {
+              loaders,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.mina$/,
+        include: /node_modules/,
+        use: '@tinajs/mina-loader',
+      },
+      {
         test: /\.js$/,
         include: [
           resolve('src'),
           resolve('node_modules/p-timeout'),
           resolve('node_modules/p-queue'),
         ],
-        use: 'babel-loader',
+        use: loaders.script,
       },
       {
-        test: /\.mina$/,
+        test: /\.(css|wxss)$/,
         exclude: /node_modules/,
-        use: [{
-          loader: '@tinajs/mina-loader',
-          options: {
-            loaders: {
-              script: 'babel-loader',
-              style: {
-                loader: 'postcss-loader',
-                options: {
-                  config: {
-                    path: resolve('./postcss.config.js'),
-                  },
-                },
-              },
-            },
-          },
-        }],
+        use: loaders.style,
       },
       {
-        test: /\.png$/,
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
         use: {
-          loader: "file-loader",
+          loader: 'file-loader',
           options: {
             name: 'assets/[name].[hash:6].[ext]',
           },

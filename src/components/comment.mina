@@ -1,8 +1,8 @@
 <config>
 {
   "usingComponents": {
-    "hn-comment": "components/comment.mina",
-    "spinner": "components/spinner.mina"
+    "hn-comment": "./comment.mina",
+    "spinner": "./spinner.mina"
   },
   "component": true
 }

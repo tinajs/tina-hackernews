@@ -5,7 +5,7 @@
   "backgroundColor": "#f2f3f5",
   "backgroundTextStyle": "dark",
   "usingComponents": {
-    "hn-reader": "components/reader.mina"
+    "hn-reader": "/components/reader.mina"
   }
 }
 </config>

@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "*.wxml": "xml",
+    "*.wxss": "css",
+    "*.wxs": "js",
+    "*.mina": "vue"
+  }
+}

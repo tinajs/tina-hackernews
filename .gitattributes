@@ -1,0 +1,13 @@
+# GitLab
+# https://docs.gitlab.com/ee/user/project/highlighting.html
+*.wxml gitlab-language=xml
+*.wxss gitlab-language=css
+*.wxs gitlab-language=js
+*.mina gitlab-language=html
+
+# GitHub
+# https://github.com/github/linguist#overrides
+*.wxml linguist-language=xml
+*.wxss linguist-language=css
+*.wxs linguist-language=js
+*.mina linguist-language=html

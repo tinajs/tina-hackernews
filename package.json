@@ -6,7 +6,7 @@
   "author": "yelo",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf './dist/!(app.json)**'",
+    "clean": "rimraf \"./dist/!(app.json)**\"",
     "prestart": "run-s clean",
     "prebuild": "run-s clean",
     "start": "webpack -w",
@@ -30,9 +30,9 @@
     "wxio": "0.0.1"
   },
   "devDependencies": {
-    "@tinajs/mina-entry-webpack-plugin": "^0.5.0",
-    "@tinajs/mina-loader": "^0.4.0",
-    "@tinajs/mina-runtime-webpack-plugin": "^0.1.2",
+    "@tinajs/mina-entry-webpack-plugin": "^0.6.2",
+    "@tinajs/mina-loader": "^0.6.0",
+    "@tinajs/mina-runtime-webpack-plugin": "^0.1.4",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

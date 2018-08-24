@@ -17,10 +17,13 @@
 </config>
 
 <script>
+import pFinally from 'promise.prototype.finally'
 import Tina from '@tinajs/tina'
 import router from '@tinajs/tina-router'
 import loading from '@tinajs/tina-loading'
 import modal from '@tinajs/tina-modal'
+
+pFinally.shim()
 
 Tina.use(router).use(loading).use(modal)
 

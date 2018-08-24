@@ -26,8 +26,9 @@
     "p-queue": "^2.3.0",
     "p-timeout": "^2.0.1",
     "posthtml": "^0.10.1",
+    "promise.prototype.finally": "^3.1.0",
     "uniq": "^1.0.1",
-    "wxio": "0.0.1"
+    "wxio": "0.2.0"
   },
   "devDependencies": {
     "@tinajs/mina-entry-webpack-plugin": "^0.6.2",

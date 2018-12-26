@@ -127,7 +127,7 @@ function fetchComments (store, item) {
 
 </script>
 
-<style lang="less">
+<style lang="postcss">
 .item-view-header {
   background-color: #ff6600;
   padding: 36px 32px 42px;

@@ -50,7 +50,7 @@ Page.define(({
 }))
 </script>
 
-<style lang="less">
+<style lang="postcss">
 .article-view {
   background-color: #fff;
   .reader {

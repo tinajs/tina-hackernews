@@ -93,7 +93,7 @@ Component.define(({
 }))
 </script>
 
-<style lang="less">
+<style lang="postcss">
 .reader-component {
   background-color: #fff;
   color: #333;

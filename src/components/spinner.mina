@@ -17,7 +17,7 @@ Component.define({
 })
 </script>
 
-<style lang="less">
+<style lang="postcss">
 /**
  * forked from https://github.com/maxbeier/text-spinners
  */

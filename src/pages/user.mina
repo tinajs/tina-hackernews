@@ -63,7 +63,7 @@ Page.define(({
 }))
 </script>
 
-<style lang="less">
+<style lang="postcss">
 .user-view {
   background-color: #fff;
   box-sizing: border-box;

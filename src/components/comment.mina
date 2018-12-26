@@ -84,7 +84,7 @@ Component.define(({
 }))
 </script>
 
-<style lang="less">
+<style lang="postcss">
 .comment-children {
   margin-left: 1.5em;
 }

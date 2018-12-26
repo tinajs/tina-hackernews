@@ -154,7 +154,7 @@ Page.define(({
 }))
 </script>
 
-<style lang="less">
+<style lang="postcss">
 .view {
   background-color: #ff6600;
 }

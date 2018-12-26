@@ -1,23 +1,15 @@
 {
   "presets": [
-    [
-      "env",
-      {
-        "target": {
-          "node": "7"
-        },
-        "loose": true
-      }
-    ],
-    "stage-0"
+    ["@babel/preset-env", {
+      "modules": false,
+      "loose": true
+    }]
   ],
   "plugins": [
-    [
-      "transform-runtime",
-      {
-        "polyfill": true,
-        "regenerator": true
-      }
-    ]
+    ["@babel/plugin-transform-runtime", {
+      "corejs": 2
+    }],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-export-default-from"
   ]
 }

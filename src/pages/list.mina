@@ -112,19 +112,27 @@ Page.define(({
     tapItemTitle (event) {
       let item = event.currentTarget.dataset.item
       if (!item.url) {
-        return this.$router.navigate(`/pages/item?id=${item.id}`)
+        return this.$router.navigate('/pages/item', {
+          id: item.id,
+        })
       }
-      this.$router.navigate(`/pages/article?id=${item.id}`)
+      this.$router.navigate('/pages/article', {
+        id: item.id,
+      })
     },
 
     tapItemBy (event) {
       let item = event.currentTarget.dataset.item
-      this.$router.navigate(`/pages/user?id=${item.by}`)
+      this.$router.navigate('/pages/user', {
+        id: item.by,
+      })
     },
 
     tapItemComments (event) {
       let item = event.currentTarget.dataset.item
-      this.$router.navigate(`/pages/item?id=${item.id}`)
+      this.$router.navigate('/pages/item', {
+        id: item.id,
+      })
     },
 
     tapMore (event) {

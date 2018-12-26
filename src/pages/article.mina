@@ -44,7 +44,9 @@ Page.define(({
 
   methods: {
     tapComments () {
-      this.$router.navigate(`/pages/item?id=${this.$route.query.id}`)
+      this.$router.navigate('/pages/item', {
+        id: this.$route.query.id,
+      })
     },
   },
 }))

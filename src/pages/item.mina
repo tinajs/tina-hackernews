@@ -86,14 +86,18 @@ Page.define(({
       if (!item.by) {
         return
       }
-      this.$router.navigate(`/pages/user?id=${item.by}`)
+      this.$router.navigate('/pages/user', {
+        id: item.by,
+      })
     },
     tapTitle () {
       let item = this.data.item || {}
       if (!item.id || !item.url) {
         return
       }
-      this.$router.navigate(`/pages/article?id=${item.id}`)
+      this.$router.navigate('/pages/article', {
+        id: item.id,
+      })
     },
 
     fetch () {

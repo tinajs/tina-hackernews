@@ -78,7 +78,9 @@ Component.define(({
       if (!item.by) {
         return
       }
-      this.$router.navigate(`/pages/user?id=${item.by}`)
+      this.$router.navigate('/pages/user', {
+        id: item.by,
+      })
     },
   }
 }))

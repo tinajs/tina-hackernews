@@ -2,7 +2,7 @@ import wxio from 'wxio'
 
 const isDevtools = wx.getSystemInfoSync().platform === 'devtools'
 
-const HACKERNEWS_API_BASE_URL = isDevtools ? `https://cors.now.sh/https://hacker-news.firebaseio.com/v0/` : 'https://tina-hackernews.lab4310.com/hn/v0/'
+const HACKERNEWS_API_BASE_URL = isDevtools ? `https://cors-anywhere.herokuapp.com/https://hacker-news.firebaseio.com/v0/` : 'https://tina-hackernews.lab4310.com/hn/v0/'
 const ARTICLE_API_BASE_URL = 'https://tina-hackernews.lab4310.com/readability/'
 const CONFIG_API_URL = 'https://tina-hackernews.lab4310.com/config'
 

@@ -13,11 +13,11 @@
     "build": "cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
-    "@tinajs/tina": "^1.4.0",
+    "@tinajs/tina": "^1.5.0",
     "@tinajs/tina-loading": "^0.2.0",
     "@tinajs/tina-modal": "^0.2.0",
-    "@tinajs/tina-router": "^0.2.0",
-    "@tinajs/tinax": "^0.1.0",
+    "@tinajs/tina-router": "^0.5.1",
+    "@tinajs/tinax": "^0.1.2",
     "compose-function": "^3.0.3",
     "date-fns": "^1.29.0",
     "he": "^1.1.1",
@@ -28,7 +28,7 @@
     "posthtml": "^0.10.1",
     "promise.prototype.finally": "^3.1.0",
     "uniq": "^1.0.1",
-    "wxio": "0.2.0"
+    "wxio": "^0.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",

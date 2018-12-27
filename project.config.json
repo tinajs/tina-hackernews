@@ -1,14 +1,17 @@
 {
-	"miniprogramRoot": "dist/",
-	"compileType": "miniprogram",
-	"setting": {
-		"es6": false,
-		"postcss": false,
-		"minified": false,
-		"uglifyFileName": false,
-		"newFeature": true
-	},
-	"appid": "wx7b964a592d5fd8e9",
-	"projectname": "HackerNews热点",
+  "miniprogramRoot": "dist/",
+  "compileType": "miniprogram",
+  "setting": {
+    "urlCheck": false,
+    "es6": false,
+    "postcss": false,
+    "minified": false,
+    "newFeature": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "uglifyFileName": false
+  },
+  "appid": "wx7b964a592d5fd8e9",
+  "projectname": "HackerNews热点",
   "condition": {}
 }
